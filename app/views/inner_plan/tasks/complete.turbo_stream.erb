@@ -1,0 +1,13 @@
+<turbo-stream action="update" target="<%= dom_id(@task.group, :ongoing_tasks) %>">
+  <template>
+    <% @task.group.tasks.ongoing.each do |task| %>
+      <%= render partial: 'inner_plan/tasks/task', locals: { task: task }, formats: [:html] %>
+    <% end %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="<%= dom_id(@task.list, :completed_tasks) %>">
+  <template>
+    <%= render partial: 'inner_plan/tasks/completed_tasks', formats: [:html], locals: { list: @task.list } %>
+  </template>
+</turbo-stream>

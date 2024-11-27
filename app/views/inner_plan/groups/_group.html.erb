@@ -1,0 +1,36 @@
+<div data-tasks-tree-target="group" data-update-url="<%= update_position_group_path(group) %>" data-id="<%= group.id %>" <% if !group.default? %>data-is-draggable="true"<% end %>>
+  <% if !group.default? %>
+    <div class="d-flex w-100 mb-2">
+      <div class="align-top me-2 text-body-tertiary group-handle" style="margin-top:-0.1rem">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
+          <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+          <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+          <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+          <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+          <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+          <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        </svg>
+      </div>
+
+      <div class="ms-1 w-100">
+        <strong><%= group.title %></strong>
+      </div>
+    </div>
+  <% end %>
+
+  <div data-tasks-tree-target="tasksContainer" id="<%= dom_id(group, :ongoing_tasks) %>">
+    <% group.tasks.ongoing.ordered_by_position.each do |task| %>
+      <%= render task %>
+    <% end %>
+  </div>
+
+  <% if local_assigns[:show_new_task_form] %>
+    <div class="mt-2 mb-4 d-none">
+      <turbo-frame id="<%= dom_id(group, :add_task) %>">
+        <a href="<%= new_group_task_path(group) %>" class="btn btn-outline-secondary btn-sm ms-tasks-element">
+          Add a to-do
+        </a>
+      </turbo-frame>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,33 @@
+<div class="d-flex w-100 mb-1" data-id="<%= task.id %>" data-update-url="<%= update_position_task_path(task) %>">
+  <div class="align-top me-2 text-body-tertiary task-handle <%= 'invisible' if task.completed? %>" style="margin-top:-0.06rem">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
+      <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+      <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+      <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+      <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+      <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+      <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+    </svg>
+  </div>
+
+  <div class="align-top" style="width:2rem; height: 2rem; margin-top: -0.15rem">
+    <% if task.ongoing? %>
+      <%= button_to complete_task_path(task), method: :post, class: 'btn p-0', form: { data: { turbo: true, turbo_stream: true } } do %>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
+          <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+        </svg>
+      <% end %>
+    <% else %>
+      <%= button_to reopen_task_path(task), method: :post, class: 'btn p-0 text-success opacity-75' do %>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
+          <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+          <path d="M9 12l2 2l4 -4"></path>
+        </svg>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="<%= class_names('form-check-label ms-1 w-100', 'text-body-tertiary' => task.completed?) %>">
+    <%= task.title %>
+  </div>
+</div>

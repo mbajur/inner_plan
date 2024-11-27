@@ -1,0 +1,13 @@
+<% limit = 3 %>
+<div id="<%= dom_id(list, :completed_tasks) %>">
+  <% list.tasks.completed.limit(limit).each do |task| %>
+    <%= render partial: 'inner_plan/tasks/task', locals: { task: task }, formats: [:html] %>
+  <% end %>
+
+  <% tasks_count_diff = list.tasks_count - list.completed_tasks_count %>
+  <% if (list.completed_tasks_count - limit).positive? %>
+    <div class="mt-2 ms-tasks-element">
+      <a href="#" class="text-body-tertiary">And <%= list.completed_tasks_count - limit %> more completed to-dos...</a>
+    </div>
+  <% end %>
+</div>
