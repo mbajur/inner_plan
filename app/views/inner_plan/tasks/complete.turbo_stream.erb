@@ -11,3 +11,9 @@
     <%= render partial: 'inner_plan/tasks/completed_tasks', formats: [:html], locals: { list: @task.list } %>
   </template>
 </turbo-stream>
+
+<turbo-stream action="update" target="<%= dom_id(@task.group, :completed_tasks) %>">
+  <template>
+    <%= render collection: @task.group.tasks.completed, partial: 'inner_plan/tasks/task', formats: [:html] %>
+  </template>
+</turbo-stream>

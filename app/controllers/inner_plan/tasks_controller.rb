@@ -9,6 +9,10 @@ module InnerPlan
       @group = InnerPlan::Group.find(params[:group_id])
     end
 
+    def show
+      @task = InnerPlan::Task.find(params[:id])
+    end
+
     def create
       @group = InnerPlan::Group.find(params[:group_id])
       @task = @group.tasks.new(task_params)
@@ -18,6 +22,20 @@ module InnerPlan
         @new_task = InnerPlan::Task.new
       else
         render :new
+      end
+    end
+
+    def edit
+      @task = InnerPlan::Task.find(params[:id])
+    end
+
+    def update
+      @task = InnerPlan::Task.find(params[:id])
+
+      if @task.update(task_params)
+        redirect_to task_path(@task)
+      else
+        render :edit
       end
     end
 
@@ -57,7 +75,7 @@ module InnerPlan
     private
 
     def task_params
-      params.require(:task).permit(:title)
+      params.require(:task).permit(:title, :description)
     end
 
     def update_positions_params

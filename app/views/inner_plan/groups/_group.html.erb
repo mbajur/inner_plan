@@ -13,15 +13,13 @@
       </div>
 
       <div class="ms-1 w-100">
-        <strong><%= group.title %></strong>
+        <strong><%= link_to group.title, group, class: 'text-reset text-decoration-none' %></strong>
       </div>
     </div>
   <% end %>
 
   <div data-tasks-tree-target="tasksContainer" id="<%= dom_id(group, :ongoing_tasks) %>">
-    <% group.tasks.ongoing.ordered_by_position.each do |task| %>
-      <%= render task %>
-    <% end %>
+    <%= render group.tasks.ongoing.ordered_by_position, cached: true %>
   </div>
 
   <% if local_assigns[:show_new_task_form] %>

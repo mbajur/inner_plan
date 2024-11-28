@@ -1,0 +1,54 @@
+<header class="mb-3">
+  <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+    <ol class="breadcrumb justify-content-center mb-0">
+      <li class="breadcrumb-item text-body-tertiary"><a href="<%= root_path %>" class="text-reset">Home</a></li>
+      <li class="breadcrumb-item text-body-tertiary" aria-current="page"><%= link_to @task.group.list.title, @task.group.list, class: 'text-reset' %></li>
+      <li class="breadcrumb-item active text-body-tertiary" aria-current="page"><%= link_to @task.group.title, @task.group, class: 'text-reset' %></li>
+    </ol>
+  </nav>
+</header>
+
+<%= form_with model: @task do |f| %>
+  <div class="d-flex mb-3">
+    <div class="fw-bold text-end me-3" style="min-width: 9rem">
+      Assigned to
+    </div>
+
+    <div>
+      <a href="#" class="text-body-tertiary text-decoration-none">Type names to assign...</a>
+    </div>
+  </div>
+
+  <div class="d-flex mb-3">
+    <div class="fw-bold text-end me-3" style="min-width: 9rem">
+      Due on
+    </div>
+
+    <div>
+      <a href="#" class="text-body-tertiary text-decoration-none">Select a date...</a>
+    </div>
+  </div>
+
+  <turbo-frame id="<%= dom_id(f.object, :description) %>">
+    <div class="d-flex mb-3">
+      <div class="fw-bold text-end me-3" style="min-width: 9rem">
+        Description
+      </div>
+
+      <div>
+        <%= f.rich_textarea :description %>
+        <%= f.submit %>
+      </div>
+    </div>
+  </turbo-frame>
+
+  <div class="d-flex">
+    <div class="fw-bold text-end me-3" style="min-width: 9rem; max-width: 9rem;">
+      When done, notify
+    </div>
+
+    <div>
+      <a href="#" class="text-body-tertiary text-decoration-none">Select a date...</a>
+    </div>
+  </div>
+<% end %>

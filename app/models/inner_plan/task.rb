@@ -11,7 +11,7 @@ module InnerPlan
 
     validates :title, presence: true
 
-    after_create :increment_list_counter_cache
+    has_rich_text :description
 
     def ongoing?
       !completed?
@@ -23,19 +23,10 @@ module InnerPlan
 
     def complete!
       touch(:completed_at)
-      list.increment!(:completed_tasks_count)
     end
 
     def reopen!
       update(completed_at: nil)
-      list.decrement!(:completed_tasks_count)
-    end
-
-    private
-
-    def increment_list_counter_cache
-      list.increment!(:tasks_count)
-      list.increment!(:completed_tasks_count) if completed?
     end
   end
 end

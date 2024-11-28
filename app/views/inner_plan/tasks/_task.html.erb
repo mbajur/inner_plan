@@ -1,5 +1,5 @@
 <div class="d-flex w-100 mb-1" data-id="<%= task.id %>" data-update-url="<%= update_position_task_path(task) %>">
-  <div class="align-top me-2 text-body-tertiary task-handle <%= 'invisible' if task.completed? %>" style="margin-top:-0.06rem">
+  <div class="align-top me-2 text-body-tertiary task-handle cm <%= 'invisible' if task.completed? %>" style="margin-top:-0.06rem">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">
       <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
       <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
@@ -28,6 +28,22 @@
   </div>
 
   <div class="<%= class_names('form-check-label ms-1 w-100', 'text-body-tertiary' => task.completed?) %>">
-    <%= task.title %>
+    <%= link_to task.title, task, class: 'text-reset text-decoration-none' %>
+
+    <% if task.completed? && !task.group.default? %>
+      &mdash; <%= task.group.title %>
+    <% else %>
+      <% if task.description.present? %>
+        <span class="text-body-tertiary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" stroke-width="2">
+            <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+            <path d="M9 9l1 0"></path>
+            <path d="M9 13l6 0"></path>
+            <path d="M9 17l6 0"></path>
+          </svg>
+        </span>
+      <% end %>
+    <% end %>
   </div>
 </div>

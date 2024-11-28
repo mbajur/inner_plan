@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 import Sortable from "sortablejs"
 import { patch } from "@rails/request.js"
 
+// @todo split that into separate controllers for lists/groups/tasks ?
 export default class extends Controller {
   static targets = ['list', 'group', 'groupsContainer', 'task', 'tasksContainer'];
 

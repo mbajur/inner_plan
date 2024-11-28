@@ -15,7 +15,15 @@
 <body>
 
 <div class="container">
-  <%= yield %>
+  <div class="row justify-content-center my-5">
+    <div class="col-lg-8 col-md-10 col-12">
+      <div class="card" style="--bs-card-border-radius: 1rem;">
+        <div class="card-body p-5">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>

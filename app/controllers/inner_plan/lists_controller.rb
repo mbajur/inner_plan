@@ -4,6 +4,10 @@ module InnerPlan
       @lists = InnerPlan::List.all.ordered_by_position
     end
 
+    def show
+      @list = InnerPlan::List.find(params[:id])
+    end
+
     def update_position
       @list = InnerPlan::List.find(params[:id])
       @list.position = { before: update_positions_params[:position][:before] }

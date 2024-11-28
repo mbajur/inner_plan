@@ -1,5 +1,9 @@
 module InnerPlan
   class GroupsController < ApplicationController
+    def show
+      @group = InnerPlan::Group.find(params[:id])
+    end
+
     def update_position
       @group = InnerPlan::Group.find(params[:id])
       @group.position = { before: update_positions_params[:position][:before] }

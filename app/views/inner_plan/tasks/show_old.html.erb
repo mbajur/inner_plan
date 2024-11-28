@@ -1,0 +1,72 @@
+<header class="mb-3">
+  <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+    <ol class="breadcrumb justify-content-center mb-0">
+      <li class="breadcrumb-item text-body-tertiary"><a href="<%= root_path %>" class="text-reset">Home</a></li>
+      <li class="breadcrumb-item text-body-tertiary" aria-current="page"><%= link_to @task.group.list.title, @task.group.list, class: 'text-reset' %></li>
+
+      <% unless @task.group.default? %>
+        <li class="breadcrumb-item active text-body-tertiary" aria-current="page"><%= link_to @task.group.title, @task.group, class: 'text-reset' %></li>
+      <% end %>
+    </ol>
+  </nav>
+</header>
+
+<%= form_with model: @task do |f| %>
+  <div class="d-flex mb-2">
+    <div class="text-end me-3" style="min-width: 9rem">
+      <%= content_tag :a, style: 'margin-top: -0.2rem; margin-right: -0.3rem', data: { turbo: true, turbo_stream: true } do %>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="39" height="39" stroke-width="1">
+          <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+        </svg>
+      <% end %>
+    </div>
+
+    <div>
+      <h1 class="h3"><%= @task.title %></h1>
+    </div>
+  </div>
+
+  <div class="d-flex mb-3">
+    <div class="fw-bold text-end me-3" style="min-width: 9rem">
+      Assigned to
+    </div>
+
+    <div>
+      <a href="<%= edit_task_path(@task) %>" class="text-body-tertiary text-decoration-none">Type names to assign...</a>
+    </div>
+  </div>
+
+  <div class="d-flex mb-3">
+    <div class="fw-bold text-end me-3" style="min-width: 9rem">
+      Due on
+    </div>
+
+    <div>
+      <a href="<%= edit_task_path(@task) %>" class="text-body-tertiary text-decoration-none">Select a date...</a>
+    </div>
+  </div>
+
+  <turbo-frame id="<%= dom_id(@task, :description) %>">
+    <div class="d-flex mb-3">
+      <div class="fw-bold text-end me-3" style="min-width: 9rem">
+        Description
+      </div>
+
+      <div>
+        <a href="<%= edit_task_path(@task) %>" class="<%= class_names('text-decoration-none', 'text-body-tertiary' => @task.description.blank?, 'text-reset' => @task.description.present?) %>">
+          <%= @task.description.presence || 'Click to add description...' %>
+        </a>
+      </div>
+    </div>
+  </turbo-frame>
+
+  <div class="d-flex">
+    <div class="fw-bold text-end me-3" style="min-width: 9rem; max-width: 9rem;">
+      When done, notify
+    </div>
+
+    <div>
+      <a href="<%= edit_task_path(@task) %>" class="text-body-tertiary text-decoration-none">Type names to notify...</a>
+    </div>
+  </div>
+<% end %>
