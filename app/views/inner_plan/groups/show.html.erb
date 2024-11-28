@@ -1,21 +1,28 @@
-<header class="mb-5">
-  <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';" >
-    <ol class="breadcrumb justify-content-center mb-0">
-      <li class="breadcrumb-item text-body-tertiary"><a href="<%= root_path %>" class="text-reset">Home</a></li>
-      <li class="breadcrumb-item active text-body-tertiary" aria-current="page"><%= link_to @group.list.title, @group.list, class: 'text-reset' %></li>
-    </ol>
-  </nav>
+<turbo-frame id="<%= dom_id(@group, :header) %>">
+  <header>
+    <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';" >
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item text-body-tertiary"><a href="<%= root_path %>" class="text-reset" data-turbo-frame="_top">Home</a></li>
+        <li class="breadcrumb-item active text-body-tertiary" aria-current="page"><%= link_to @group.list.title, @group.list, class: 'text-reset', data: { turbo_frame: :_top } %></li>
+      </ol>
+    </nav>
 
-  <div class="row justify-content-center">
-    <div class="col-6">
-      <h1 class="h2 text-center"><%= @group.title %> <small class="fs-6 text-body-tertiary"><%= @group.tasks.completed.count %>/<%= @group.tasks.count %></small></h1>
+    <div class="row">
+      <div class="col-6">
+        <h1 class="h2">
+          <%= link_to @group.title, edit_group_path(@group), class: 'text-reset text-decoration-none' %>
+          <small class="fs-6 text-body-tertiary"><%= @group.tasks.completed.count %>/<%= @group.tasks.count %></small>
+        </h1>
+      </div>
     </div>
-  </div>
 
-  <div class="progress mt-2" role="progressbar" style="height: 2px;" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-    <div class="progress-bar" style="width: <%= percent(@group.tasks.completed.count, @group.tasks.count) %>%"></div>
+    <%= render 'inner_plan/shared/progress_separator', completed_count: @group.tasks.completed.count, total_count: @group.tasks.count %>
+  </header>
+
+  <div class="mb-4 mt-3">
+    <%= @group.description %>
   </div>
-</header>
+</turbo-frame>
 
 <div data-controller="tasks-tree">
   <div data-tasks-tree-target="tasksContainer" id="<%= dom_id(@group, :ongoing_tasks) %>">

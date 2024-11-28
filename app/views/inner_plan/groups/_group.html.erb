@@ -21,14 +21,4 @@
   <div data-tasks-tree-target="tasksContainer" id="<%= dom_id(group, :ongoing_tasks) %>">
     <%= render group.tasks.ongoing.ordered_by_position, cached: true %>
   </div>
-
-  <% if local_assigns[:show_new_task_form] %>
-    <div class="mt-2 mb-4 d-none">
-      <turbo-frame id="<%= dom_id(group, :add_task) %>">
-        <a href="<%= new_group_task_path(group) %>" class="btn btn-outline-secondary btn-sm ms-tasks-element">
-          Add a to-do
-        </a>
-      </turbo-frame>
-    </div>
-  <% end %>
 </div>

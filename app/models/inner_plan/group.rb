@@ -6,5 +6,8 @@ module InnerPlan
     positioned on: :list
 
     scope :ordered_by_position, ->{ order(position: :asc) }
+    scope :default, ->{ where(default: true) }
+
+    has_rich_text :description
   end
 end

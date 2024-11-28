@@ -6,5 +6,9 @@ module InnerPlan
     positioned
 
     scope :ordered_by_position, ->{ order(position: :asc) }
+
+    has_rich_text :description
+
+    validates :title, presence: true
   end
 end

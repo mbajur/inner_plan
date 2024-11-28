@@ -21,7 +21,7 @@ module InnerPlan
       if @task.save
         @new_task = InnerPlan::Task.new
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -35,7 +35,7 @@ module InnerPlan
       if @task.update(task_params)
         redirect_to task_path(@task)
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
@@ -75,7 +75,7 @@ module InnerPlan
     private
 
     def task_params
-      params.require(:task).permit(:title, :description)
+      params.require(:task).permit(:title, :description, :due_on)
     end
 
     def update_positions_params

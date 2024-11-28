@@ -1,3 +1,5 @@
+<% groups = list.groups.ordered_by_position %>
+
 <div data-tasks-tree-target="list" data-update-url="<%= update_position_list_path(list) %>" data-id="<%= list.id %>" class="mb-5">
   <div class="d-flex w-100 mb-1">
     <div class="align-top me-2 text-body-tertiary list-handle" style="margin-top:1.5rem">
@@ -19,14 +21,28 @@
       <h3 class="h5">
         <%= link_to list.title, list, class: 'text-reset' %>
       </h3>
+
+      <% if list.description.present? %>
+        <div class="mb-2">
+          <%= list.description %>
+        </div>
+      <% end %>
     </div>
   </div>
 
   <div data-tasks-tree-target="groupsContainer">
-    <% groups = list.groups.ordered_by_position %>
     <% groups.each_with_index do |group, index| %>
-      <%= render partial: 'inner_plan/groups/group', locals: { group: group, show_new_task_form: index == groups.size - 1 } %>
+      <%= render partial: 'inner_plan/groups/group', locals: { group: group } %>
     <% end %>
+  </div>
+
+  <div class="mt-2 mb-4">
+    <% last_group = groups.to_a.last %>
+    <turbo-frame id="<%= dom_id(last_group, :add_task) %>">
+      <a href="<%= new_group_task_path(last_group) %>" class="btn btn-outline-secondary btn-sm ms-tasks-element">
+        Add a to-do
+      </a>
+    </turbo-frame>
   </div>
 
   <div class="mt-3">

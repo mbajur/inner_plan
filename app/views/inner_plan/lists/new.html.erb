@@ -1,0 +1,24 @@
+<header class="mb-5">
+  <div class="row">
+    <div class="col-6">
+      <h1 class="h2">
+        New list
+      </h1>
+    </div>
+  </div>
+
+  <%= render 'inner_plan/shared/progress_separator', completed_count: 0, total_count: 100 %>
+</header>
+
+<%= form_with model: @list do |f| %>
+  <div class="mb-3">
+    <%= f.text_field :title, class: 'form-control form-control-lg', placeholder: 'Name this list...', autofocus: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.rich_textarea :description, placeholder: 'Add extra details or attach a file...' %>
+  </div>
+
+  <%= f.submit 'Create list', class: 'btn btn-success btn-sm' %>
+  <%= link_to 'Cancel', lists_path, class: 'btn btn-outline-secondary btn-sm' %>
+<% end %>

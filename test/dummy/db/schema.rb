@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_27_200012) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_28_094408) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -82,6 +82,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_27_200012) do
     t.datetime "updated_at", null: false
     t.integer "group_id", null: false
     t.integer "position", default: 0
+    t.date "due_on"
     t.index ["group_id", "position"], name: "index_inner_plan_tasks_on_group_id_and_position", unique: true
     t.index ["group_id"], name: "index_inner_plan_tasks_on_group_id"
   end

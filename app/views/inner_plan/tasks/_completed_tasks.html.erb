@@ -8,10 +8,11 @@
   <% end %>
 
   <% if truncate %>
-    <% tasks_count_diff = list.tasks_count - list.completed_tasks_count %>
-    <% if (list.completed_tasks_count - limit).positive? %>
+    <% completed_tasks_count = list.tasks.completed.count %>
+
+    <% if (completed_tasks_count - limit).positive? %>
       <div class="mt-2 ms-tasks-element">
-        <a href="#" class="text-body-tertiary">And <%= list.completed_tasks_count - limit %> more completed to-dos...</a>
+        <a href="#" class="text-body-tertiary">And <%= completed_tasks_count - limit %> more completed to-dos...</a>
       </div>
     <% end %>
   <% end %>

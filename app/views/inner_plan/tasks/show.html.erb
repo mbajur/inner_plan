@@ -1,6 +1,6 @@
 <header class="mb-3">
   <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';">
-    <ol class="breadcrumb justify-content-center mb-0">
+    <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item text-body-tertiary"><a href="<%= root_path %>" class="text-reset">Home</a></li>
       <li class="breadcrumb-item text-body-tertiary" aria-current="page"><%= link_to @task.group.list.title, @task.group.list, class: 'text-reset' %></li>
 
@@ -15,8 +15,8 @@
 
 <%= form_with model: @task do |f| %>
   <div class="d-flex mb-2">
-    <div class="text-end me-3">
-      <%= content_tag :a, style: 'display:block; margin-top: -0.2rem; margin-left: -1rem', data: { turbo: true, turbo_stream: true } do %>
+    <div class="text-end me-2">
+      <%= content_tag :a, style: 'display:block; margin-top: -0.2rem;', data: { turbo: true, turbo_stream: true } do %>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="39" height="39" stroke-width="1">
           <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
         </svg>
@@ -24,7 +24,9 @@
     </div>
 
     <div>
-      <h1 class="h3"><%= @task.title %></h1>
+      <h1 class="h3">
+        <%= link_to @task.title, edit_task_path(@task), class: 'text-reset text-decoration-none' %>
+      </h1>
     </div>
   </div>
 
@@ -50,19 +52,24 @@
       <div class="d-flex mt-4">
         <div class="me-3 text-body-tertiary" style="margin-top:-0.2rem">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
-            <path d="M10.5 21h-4.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v3"></path>
+            <path d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
             <path d="M16 3v4"></path>
             <path d="M8 3v4"></path>
-            <path d="M4 11h10"></path>
-            <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
-            <path d="M18 16.5v1.5l.5 .5"></path>
+            <path d="M4 11h16"></path>
+            <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
           </svg>
         </div>
 
         <div>
           <h6>Due on</h6>
 
-          12 Aug 2024
+          <a href="<%= edit_task_path(@task) %>" class="<%= class_names('text-decoration-none', 'text-body-tertiary' => @task.due_on.blank?, 'text-reset' => @task.due_on.present?) %>">
+            <% if @task.due_on %>
+              <%= @task.due_on.strftime('%a, %b %e, %Y') %>
+            <% else %>
+              Select a date...
+            <% end %>
+          </a>
         </div>
       </div>
     </div>
@@ -99,15 +106,13 @@
     <div class="pe-4">
       <h6>Description</h6>
 
-      <turbo-frame id="<%= dom_id(@task, :description) %>">
+      <% if @task.description.present? %>
+        <%= @task.description %>
+      <% else %>
         <a href="<%= edit_task_path(@task) %>" class="<%= class_names('text-decoration-none', 'text-body-tertiary' => @task.description.blank?, 'text-reset' => @task.description.present?) %>">
-          <% if @task.description.present? %>
-            <%= @task.description %>
-          <% else %>
-            Click to add description...
-          <% end %>
+          Click to add description...
         </a>
-      </turbo-frame>
+      <% end %>
     </div>
   </div>
 <% end %>

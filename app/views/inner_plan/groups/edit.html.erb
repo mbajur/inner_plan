@@ -1,0 +1,33 @@
+<turbo-frame id="<%= dom_id(@group, :header) %>">
+  <%= form_for @group do |f| %>
+    <header class="mb-3">
+      <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';" >
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item text-body-tertiary"><a href="<%= root_path %>" class="text-reset" data-turbo-frame="_top">Home</a></li>
+          <li class="breadcrumb-item text-body-tertiary" aria-current="page"><%= link_to @group.list.title, @group.list, class: 'text-reset', data: { turbo_frame: :_top } %></li>
+          <li class="breadcrumb-item text-body-tertiary" aria-current="page"><%= link_to @group.title, @group, class: 'text-reset', data: { turbo_frame: :_top } %></li>
+          <li class="breadcrumb-item active text-body-tertiary" aria-current="page">Edit</li>
+        </ol>
+      </nav>
+
+      <div class="row">
+        <div class="col-6">
+          <h1 class="h2">
+            <%= f.text_field :title, class: 'form-control form-control-lg mt-2' %>
+          </h1>
+        </div>
+      </div>
+
+      <%= render 'inner_plan/shared/progress_separator', completed_count: @group.tasks.completed.count, total_count: @group.tasks.count %>
+    </header>
+
+    <div class="mb-2">
+      <%= f.rich_textarea :description, placeholder: 'Add extra details or attach a file...' %>
+    </div>
+
+    <div class="mb-5">
+      <%= f.submit 'Save changes', class: 'btn btn-success btn-sm' %>
+      <%= link_to 'Cancel', @list, class: 'btn btn-outline-secondary btn-sm' %>
+    </div>
+  <% end %>
+</turbo-frame>

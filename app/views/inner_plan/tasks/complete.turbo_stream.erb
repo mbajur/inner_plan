@@ -8,7 +8,7 @@
 
 <turbo-stream action="replace" target="<%= dom_id(@task.list, :completed_tasks) %>">
   <template>
-    <%= render partial: 'inner_plan/tasks/completed_tasks', formats: [:html], locals: { list: @task.list } %>
+    <%= render partial: 'inner_plan/tasks/completed_tasks', formats: [:html], locals: { list: @task.list, truncate: true } %>
   </template>
 </turbo-stream>
 

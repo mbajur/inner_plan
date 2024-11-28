@@ -1,18 +1,20 @@
-<header class="mb-5">
-  <div class="row justify-content-center">
+<header class="mb-4">
+  <div class="row">
     <div class="col-6">
-      <h1 class="h2 text-center">
+      <h1 class="h2">
         Tasks
         <small class="fs-6 text-body-tertiary">
           <%= InnerPlan::Task.completed.count %>/<%= InnerPlan::Task.all.count %>
         </small>
       </h1>
     </div>
+
+    <div class="col-6 text-end">
+      <%= link_to '+ New list', new_list_path, class: 'btn btn-success', data: { turbo_frame: dom_id(InnerPlan::List.new, :form) } %>
+    </div>
   </div>
 
-  <div class="progress mt-2" role="progressbar" style="height: 2px;" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-    <div class="progress-bar" style="width: <%= percent(InnerPlan::Task.completed.count, InnerPlan::Task.all.count) %>%"></div>
-  </div>
+  <%= render 'inner_plan/shared/progress_separator', completed_count: InnerPlan::Task.completed.count, total_count: InnerPlan::Task.all.count %>
 </header>
 
 <div data-controller="tasks-tree">

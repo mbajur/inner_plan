@@ -1,27 +1,31 @@
-<header class="mb-5">
-  <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';" >
-    <ol class="breadcrumb justify-content-center mb-0">
-      <li class="breadcrumb-item text-body-tertiary"><a href="<%= root_path %>" class="text-reset">Home</a></li>
-      <li class="breadcrumb-item active text-body-tertiary" aria-current="page">List #<%= @list.id %></li>
-    </ol>
-  </nav>
+<turbo-frame id="<%= dom_id(@list, :header) %>">
+  <header>
+    <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item text-body-tertiary"><a href="<%= root_path %>" class="text-reset" data-turbo-frame="_top">Home</a></li>
+        <li class="breadcrumb-item active text-body-tertiary" aria-current="page">List #<%= @list.id %></li>
+      </ol>
+    </nav>
 
-  <div class="row justify-content-center">
-    <div class="col-6">
-      <h1 class="h2 text-center">
-        <%= @list.title %>
+    <div class="row">
+      <div class="col-12">
+        <h1 class="h2">
+          <%= link_to @list.title, edit_list_path(@list), class: 'text-reset text-decoration-none' %>
 
-        <small class="fs-6 text-body-tertiary">
-          <%= @list.tasks.completed.count %>/<%= @list.tasks.count %>
-        </small>
-      </h1>
+          <small class="fs-6 text-body-tertiary">
+            <%= @list.tasks.completed.count %>/<%= @list.tasks.count %>
+          </small>
+        </h1>
+      </div>
     </div>
-  </div>
 
-  <div class="progress mt-2" role="progressbar" style="height: 2px;" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-    <div class="progress-bar" style="width: <%= percent(@list.tasks.completed.count, @list.tasks.count) %>%"></div>
+    <%= render 'inner_plan/shared/progress_separator', completed_count: @list.tasks.completed.count, total_count: @list.tasks.count %>
+  </header>
+
+  <div class="mb-4 mt-3">
+    <%= @list.description %>
   </div>
-</header>
+</turbo-frame>
 
 <div data-controller="tasks-tree">
   <div data-tasks-tree-target="groupsContainer">
