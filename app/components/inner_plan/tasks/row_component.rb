@@ -19,7 +19,20 @@ module InnerPlan::Tasks
     def template
       div(class: "d-flex w-100 mb-1", data_id: task.id, data_update_url: helpers.update_position_task_path(task)) {
         div(class: class_names('align-top me-2 text-body-tertiary task-handle cm', invisible: task.completed?), style: 'margin-top:-0.2rem') {
-          render(Phlex::Icons::Tabler::GripVertical.new(width: 20, height: 20))
+          div(class: "dropstart", style: 'padding-top: 0.1rem') {
+            a(class: "align-top text-body-tertiary list-handle cm", data_bs_toggle: "dropdown") {
+              render(Phlex::Icons::Tabler::GripVertical.new(width: 20, height: 20))
+            }
+
+            ul(class: "dropdown-menu dropdown-menu-end") {
+              li {
+                link_to(helpers.edit_task_path(task), class: 'dropdown-item d-flex align-items-center gap-2', data: { turbo_frame: :_top }) {
+                  render(Phlex::Icons::Tabler::Pencil.new(width: 18, height: 18, class: 'text-secondary'))
+                  span { "Edit task" }
+                }
+              }
+            }
+          }
         }
 
         div(class: 'align-top', style: 'width:2rem; height: 2rem; margin-top: -0.15rem') {

@@ -22,7 +22,7 @@ module InnerPlan::Lists
 
           li {
             link_to(helpers.new_list_group_path(list), class: 'dropdown-item d-flex align-items-center gap-2', data: { turbo_frame: :_top }) {
-              render(Phlex::Icons::Tabler::ListDetails.new(width: 18, height: 18, class: 'text-secondary'))
+              render(Phlex::Icons::Tabler::Apps.new(width: 18, height: 18, class: 'text-secondary'))
               span { "Add Group" }
             }
           }
