@@ -19,7 +19,7 @@
   <% end %>
 
 
-  <div data-tasks-tree-target="tasksContainer" id="<%= dom_id(group, :ongoing_tasks) %>">
+  <div data-tasks-tree-target="tasksContainer" id="<%= dom_id(group, :ongoing_tasks) %>" style="min-height: 1px; margin-top: -1px;">
     <% group.tasks.ongoing.ordered_by_position.each do |task| %>
       <%= render(InnerPlan::Tasks::RowComponent.new(task, context: local_assigns[:context])) %>
     <% end %>

@@ -1,14 +1,23 @@
 <turbo-frame id="<%= dom_id(@group, :header) %>">
   <%= form_for @group do |f| %>
     <header class="mb-3">
-      <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';" >
-        <ol class="breadcrumb mb-0">
-          <li class="breadcrumb-item text-body-tertiary"><a href="<%= root_path %>" class="text-reset" data-turbo-frame="_top">Home</a></li>
-          <li class="breadcrumb-item text-body-tertiary" aria-current="page"><%= link_to @group.list.title, @group.list, class: 'text-reset', data: { turbo_frame: :_top } %></li>
-          <li class="breadcrumb-item text-body-tertiary" aria-current="page"><%= link_to @group.title, @group, class: 'text-reset', data: { turbo_frame: :_top } %></li>
-          <li class="breadcrumb-item active text-body-tertiary" aria-current="page">Edit</li>
-        </ol>
-      </nav>
+      <%= render(InnerPlan::BreadcrumbsComponent.new) do |c| %>
+        <% c.with_breadcrumb do %>
+          <%= link_to 'Home', root_path, class: 'text-reset', data: { turbo_frame: :_top } %>
+        <% end %>
+
+        <% c.with_breadcrumb do %>
+          <%= link_to @group.list.title, @group.list, class: 'text-reset', data: { turbo_frame: :_top } %>
+        <% end %>
+
+        <% c.with_breadcrumb do %>
+          <%= link_to @group.title, @group, class: 'text-reset', data: { turbo_frame: :_top } %>
+        <% end %>
+
+        <% c.with_breadcrumb(active: true) do %>
+          Edit
+        <% end %>
+      <% end %>
 
       <div class="row">
         <div class="col-6">
@@ -18,7 +27,7 @@
         </div>
       </div>
 
-      <%= render 'inner_plan/shared/progress_separator', completed_count: @group.tasks.completed.count, total_count: @group.tasks.count %>
+      <%= render(InnerPlan::ProgressBarSeparatorComponent.new(completed: @group.tasks.completed.count, total: @group.tasks.count)) %>
     </header>
 
     <div class="mb-2">

@@ -9,7 +9,7 @@
     <% end %>
 
     <div class="row">
-      <div class="col-12">
+      <div class="col-10">
         <h1 class="h2">
           <%= link_to @list.title, edit_list_path(@list), class: 'text-reset text-decoration-none' %>
 
@@ -17,6 +17,10 @@
             <%= @list.tasks.completed.count %>/<%= @list.tasks.count %>
           </small>
         </h1>
+      </div>
+
+      <div class="col-2 text-end">
+        <%= render(InnerPlan::Lists::ShowMenuComponent.new(@list)) %>
       </div>
     </div>
 

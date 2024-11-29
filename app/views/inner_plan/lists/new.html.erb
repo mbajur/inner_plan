@@ -1,4 +1,10 @@
 <header class="mb-5">
+  <%= render(InnerPlan::BreadcrumbsComponent.new) do |c| %>
+    <% c.with_breadcrumb do %>
+      <%= link_to 'Home', root_path, class: 'text-reset', data: { turbo_frame: :_top } %>
+    <% end %>
+  <% end %>
+
   <div class="row">
     <div class="col-6">
       <h1 class="h2">

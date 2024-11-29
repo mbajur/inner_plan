@@ -25,10 +25,14 @@
     </div>
   </div>
 
-  <div>
+  <div class="w-100">
     <h1 class="h3">
       <%= link_to @task.title, edit_task_path(@task), class: 'text-reset text-decoration-none' %>
     </h1>
+  </div>
+
+  <div class="text-end">
+    <%= render(InnerPlan::Tasks::ShowMenuComponent.new(@task)) %>
   </div>
 </div>
 

@@ -1,0 +1,36 @@
+<%= form_for [@list, @group] do |f| %>
+  <header class="mb-3">
+    <%= render(InnerPlan::BreadcrumbsComponent.new) do |c| %>
+      <% c.with_breadcrumb do %>
+        <%= link_to 'Home', root_path, class: 'text-reset', data: { turbo_frame: :_top } %>
+      <% end %>
+
+      <% c.with_breadcrumb do %>
+        <%= link_to @group.list.title, @group.list, class: 'text-reset', data: { turbo_frame: :_top } %>
+      <% end %>
+
+      <% c.with_breadcrumb(active: true) do %>
+        New group
+      <% end %>
+    <% end %>
+
+    <div class="row">
+      <div class="col-6">
+        <h1 class="h2">
+          <%= f.text_field :title, class: 'form-control form-control-lg mt-2' %>
+        </h1>
+      </div>
+    </div>
+
+    <%= render(InnerPlan::ProgressBarSeparatorComponent.new(completed: @group.tasks.completed.count, total: @group.tasks.count)) %>
+  </header>
+
+  <div class="mb-2">
+    <%= f.rich_textarea :description, placeholder: 'Add extra details or attach a file...' %>
+  </div>
+
+  <div class="mb-5">
+    <%= f.submit 'Save changes', class: 'btn btn-success btn-sm' %>
+    <%= link_to 'Cancel', @list, class: 'btn btn-outline-secondary btn-sm' %>
+  </div>
+<% end %>

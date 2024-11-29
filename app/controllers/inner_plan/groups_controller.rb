@@ -18,6 +18,23 @@ module InnerPlan
       end
     end
 
+    def new
+      @list = InnerPlan::List.find(params[:list_id])
+      @group = @list.groups.new(params[:id])
+    end
+
+    def create
+      @group = InnerPlan::Group.new(group_params)
+      @group.list = InnerPlan::List.find(params[:list_id])
+      @group.position = :last
+
+      if @group.save
+        redirect_to @group.list
+      else
+        render :new, status: :unprocessable_entity
+      end
+    end
+
     def update_position
       @group = InnerPlan::Group.find(params[:id])
       @group.position = { before: update_positions_params[:position][:before] }
