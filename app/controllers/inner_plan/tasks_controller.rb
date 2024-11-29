@@ -31,9 +31,11 @@ module InnerPlan
     end
 
     def update
+      update_params = task_params
+      update_params[:assigned_user_ids] = update_params[:assigned_user_ids].split(',')
       @task = InnerPlan::Task.find(params[:id])
 
-      if @task.update(task_params)
+      if @task.update(update_params)
         redirect_to task_path(@task)
       else
         render :edit, status: :unprocessable_entity
@@ -76,7 +78,7 @@ module InnerPlan
     private
 
     def task_params
-      params.require(:task).permit(:title, :description, :due_on)
+      params.require(:task).permit(:title, :description, :due_on, :assigned_user_ids)
     end
 
     def update_positions_params

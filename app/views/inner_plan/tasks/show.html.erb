@@ -31,7 +31,7 @@
   </div>
 
   <div class="row">
-    <div class="col-4">
+    <div class="col-6">
       <div class="d-flex mt-4">
         <div class="me-3 text-body-tertiary" style="margin-top:-0.2rem">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
@@ -43,12 +43,18 @@
         <div>
           <h6>Assigned to</h6>
 
-          Mike B.
+          <% if @task.assigned_users.any? %>
+            <%= @task.assigned_users.map(&:profile).map(&:to_s).to_sentence %>
+          <% else %>
+            <a href="<%= edit_task_path(@task) %>" class="text-decoration-none text-body-tertiary">
+              Select assignees...
+            </a>
+          <% end %>
         </div>
       </div>
     </div>
 
-    <div class="col-4">
+    <div class="col-6">
       <div class="d-flex mt-4">
         <div class="me-3 text-body-tertiary" style="margin-top:-0.2rem">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
@@ -70,23 +76,6 @@
               Select a date...
             <% end %>
           </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-4">
-      <div class="d-flex mt-4">
-        <div class="me-3 text-body-tertiary" style="margin-top:-0.2rem">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
-            <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
-            <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
-          </svg>
-        </div>
-
-        <div>
-          <h6>When done, notify</h6>
-
-          Mike B.
         </div>
       </div>
     </div>
@@ -129,7 +118,7 @@
       <h6>Created by</h6>
 
       <div class="text-body-tertiary">
-        <%= @task.user.to_s %> on <%= @task.created_at.strftime('%a, %b %e, %Y') %>
+        <%= @task.user.profile.to_s %> on <%= @task.created_at.strftime('%a, %b %e, %Y') %>
       </div>
     </div>
   </div>

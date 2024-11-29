@@ -42,7 +42,11 @@
         <div>
           <h6>Assigned to</h6>
 
-          Mike B.
+          <div class="w-100">
+            <%= f.combobox :assigned_user_ids,
+                           users_path,
+                           multiselect_chip_src: combobox_chips_users_path %>
+          </div>
         </div>
       </div>
     </div>

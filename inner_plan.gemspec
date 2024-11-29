@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "positioning"
   spec.add_dependency "importmap-rails"
   spec.add_dependency "image_processing", ">= 1.2"
+  spec.add_dependency "hotwire_combobox"
 end

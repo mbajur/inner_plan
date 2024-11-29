@@ -58,6 +58,15 @@
           <%= task.due_on.strftime('%a, %b %e') %>
         </small>
       <% end %>
+
+      <% if task.assigned_user_ids.any? %>
+        <% task.assigned_users.map do |user| %>
+          <small class="text-nowrap opacity-50 ms-1">
+            <%= image_tag user.profile.avatar_url, size: 20, class: 'rounded-circle', style: 'margin-top:-0.2rem' %>
+            <%= user.profile.to_s %>
+          </small>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>
