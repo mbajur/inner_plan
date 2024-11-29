@@ -1,4 +1,4 @@
-<header class="mb-5">
+<header class="mb-3">
   <%= render(InnerPlan::BreadcrumbsComponent.new) do |c| %>
     <% c.with_breadcrumb do %>
       <%= link_to 'Home', root_path, class: 'text-reset', data: { turbo_frame: :_top } %>
