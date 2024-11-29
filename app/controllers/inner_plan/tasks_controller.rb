@@ -53,10 +53,6 @@ module InnerPlan
       @task = InnerPlan::Task.find(params[:id])
       @task.complete!
 
-      @ongoing_tasks = InnerPlan::Task.ongoing
-      @completed_tasks = InnerPlan::Task.completed.limit(3)
-      @completed_tasks_count = InnerPlan::Task.completed.count
-
       respond_to do |format|
         format.turbo_stream
       end
@@ -65,10 +61,6 @@ module InnerPlan
     def reopen
       @task = InnerPlan::Task.find(params[:id])
       @task.reopen!
-
-      @ongoing_tasks = InnerPlan::Task.ongoing
-      @completed_tasks = InnerPlan::Task.completed.limit(3)
-      @completed_tasks_count = InnerPlan::Task.completed.count
 
       respond_to do |format|
         format.turbo_stream { render :complete }

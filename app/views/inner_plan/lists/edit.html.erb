@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <%= render 'inner_plan/shared/progress_separator', completed_count: @list.tasks.completed.count, total_count: @list.tasks.count %>
+      <%= render(InnerPlan::ProgressBarSeparatorComponent.new(completed: @list.tasks.completed.count, total: @list.tasks.count)) %>
     </header>
 
     <div class="mb-2">

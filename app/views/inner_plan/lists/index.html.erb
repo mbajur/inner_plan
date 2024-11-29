@@ -14,11 +14,11 @@
     </div>
   </div>
 
-  <%= render 'inner_plan/shared/progress_separator', completed_count: InnerPlan::Task.completed.count, total_count: InnerPlan::Task.all.count %>
+  <%= render(InnerPlan::ProgressBarSeparatorComponent.new(completed: InnerPlan::Task.completed.count, total: InnerPlan::Task.all.count)) %>
 </header>
 
 <div data-controller="tasks-tree">
   <% @lists.each do |list| %>
-    <%= render partial: 'inner_plan/lists/list', locals: { list: list } %>
+    <%= render partial: 'inner_plan/lists/list', locals: { list: list, context: :lists_index } %>
   <% end %>
 </div>

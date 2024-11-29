@@ -4,7 +4,7 @@
 
 <div id="<%= dom_id(list, :completed_tasks) %>">
   <% scope.each do |task| %>
-    <%= render partial: 'inner_plan/tasks/task', locals: { task: task }, formats: [:html] %>
+    <%= render(InnerPlan::Tasks::RowComponent.new(task, context: local_assigns[:context])) %>
   <% end %>
 
   <% if truncate %>

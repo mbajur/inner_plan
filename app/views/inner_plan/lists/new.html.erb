@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <%= render 'inner_plan/shared/progress_separator', completed_count: 0, total_count: 100 %>
+  <%= render(InnerPlan::ProgressBarSeparatorComponent.new) %>
 </header>
 
 <%= form_with model: @list do |f| %>

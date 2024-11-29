@@ -1,11 +1,14 @@
 <turbo-frame id="<%= dom_id(@group, :header) %>">
   <header>
-    <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';" >
-      <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item text-body-tertiary"><a href="<%= root_path %>" class="text-reset" data-turbo-frame="_top">Home</a></li>
-        <li class="breadcrumb-item active text-body-tertiary" aria-current="page"><%= link_to @group.list.title, @group.list, class: 'text-reset', data: { turbo_frame: :_top } %></li>
-      </ol>
-    </nav>
+    <%= render(InnerPlan::BreadcrumbsComponent.new) do |c| %>
+      <% c.with_breadcrumb do %>
+        <%= link_to 'Home', root_path, class: 'text-reset', data: { turbo_frame: :_top } %>
+      <% end %>
+
+      <% c.with_breadcrumb(active: true) do %>
+        <%= link_to @group.list.title, @group.list, class: 'text-reset', data: { turbo_frame: :_top } %>
+      <% end %>
+    <% end %>
 
     <div class="row">
       <div class="col-6">
@@ -16,7 +19,7 @@
       </div>
     </div>
 
-    <%= render 'inner_plan/shared/progress_separator', completed_count: @group.tasks.completed.count, total_count: @group.tasks.count %>
+    <%= render(InnerPlan::ProgressBarSeparatorComponent.new(completed: @group.tasks.completed.count, total: @group.tasks.count)) %>
   </header>
 
   <div class="mb-4 mt-3">
@@ -26,10 +29,14 @@
 
 <div data-controller="tasks-tree">
   <div data-tasks-tree-target="tasksContainer" id="<%= dom_id(@group, :ongoing_tasks) %>">
-    <%= render @group.tasks.ongoing.ordered_by_position, cached: true %>
+    <% @group.tasks.ongoing.ordered_by_position.each do |task| %>
+      <%= render(InnerPlan::Tasks::RowComponent.new(task, context: :groups_show)) %>
+    <% end %>
   </div>
 </div>
 
 <div id="<%= dom_id(@group, :completed_tasks) %>">
-  <%= render collection: @group.tasks.completed, partial: 'inner_plan/tasks/task' %>
+  <% @group.tasks.completed.each do |task| %>
+    <%= render(InnerPlan::Tasks::RowComponent.new(task, context: :groups_show)) %>
+  <% end %>
 </div>

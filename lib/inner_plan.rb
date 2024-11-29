@@ -7,6 +7,9 @@ require "positioning"
 require "importmap-rails"
 require "image_processing"
 require "hotwire_combobox"
+require "phlex"
+require "phlex-rails"
+require "phlex-icons-tabler"
 
 module InnerPlan
   class << self

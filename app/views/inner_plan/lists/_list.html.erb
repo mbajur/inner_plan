@@ -32,7 +32,7 @@
 
   <div data-tasks-tree-target="groupsContainer">
     <% groups.each_with_index do |group, index| %>
-      <%= render partial: 'inner_plan/groups/group', locals: { group: group } %>
+      <%= render partial: 'inner_plan/groups/group', locals: { group: group, context: context } %>
     <% end %>
   </div>
 
@@ -46,6 +46,6 @@
   </div>
 
   <div class="mt-3">
-    <%= render partial: 'inner_plan/tasks/completed_tasks', locals: { list: list, truncate: true } %>
+    <%= render partial: 'inner_plan/tasks/completed_tasks', locals: { list: list, context: local_assigns[:context], truncate: true } %>
   </div>
 </div>

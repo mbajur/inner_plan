@@ -5,6 +5,9 @@ PATH
       hotwire_combobox
       image_processing (>= 1.2)
       importmap-rails
+      phlex (>= 1.11)
+      phlex-icons-tabler (~> 1.6)
+      phlex-rails
       positioning
       rails (>= 7.1.5)
       turbo-rails
@@ -146,6 +149,12 @@ GEM
     nokogiri (1.16.7-x86_64-darwin)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    phlex (1.11.0)
+    phlex-icons-tabler (1.6.0)
+      phlex (>= 1.11)
+    phlex-rails (1.2.2)
+      phlex (>= 1.10, < 2)
+      railties (>= 6.1, < 9)
     positioning (0.4.4)
       activerecord (>= 6.1)
       activesupport (>= 6.1)

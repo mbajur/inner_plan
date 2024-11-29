@@ -1,19 +1,25 @@
-<turbo-stream action="update" target="<%= dom_id(@task.group, :ongoing_tasks) %>">
-  <template>
-    <% @task.group.tasks.ongoing.each do |task| %>
-      <%= render partial: 'inner_plan/tasks/task', locals: { task: task }, formats: [:html] %>
-    <% end %>
-  </template>
-</turbo-stream>
+<% if params[:context] == 'lists_index' %>
+  <turbo-stream action="update" target="<%= dom_id(@task.group, :ongoing_tasks) %>">
+    <template>
+      <% @task.group.tasks.ongoing.each do |task| %>
+        <%= render(InnerPlan::Tasks::RowComponent.new(task, context: params[:context])) %>
+      <% end %>
+    </template>
+  </turbo-stream>
 
-<turbo-stream action="replace" target="<%= dom_id(@task.list, :completed_tasks) %>">
-  <template>
-    <%= render partial: 'inner_plan/tasks/completed_tasks', formats: [:html], locals: { list: @task.list, truncate: true } %>
-  </template>
-</turbo-stream>
+  <turbo-stream action="replace" target="<%= dom_id(@task.list, :completed_tasks) %>">
+    <template>
+      <%= render partial: 'inner_plan/tasks/completed_tasks', formats: [:html], locals: { list: @task.list, context: params[:context], truncate: true } %>
+    </template>
+  </turbo-stream>
 
-<turbo-stream action="update" target="<%= dom_id(@task.group, :completed_tasks) %>">
-  <template>
-    <%= render collection: @task.group.tasks.completed, partial: 'inner_plan/tasks/task', formats: [:html] %>
-  </template>
-</turbo-stream>
+  <turbo-stream action="update" target="<%= dom_id(@task.group, :completed_tasks) %>">
+    <template>
+      <% @task.group.tasks.completed.each do |task| %>
+        <%= render(InnerPlan::Tasks::RowComponent.new(task, context: params[:context])) %>
+      <% end %>
+    </template>
+  </turbo-stream>
+<% else %>
+  <turbo-stream action="refresh"></turbo-stream>
+<% end %>

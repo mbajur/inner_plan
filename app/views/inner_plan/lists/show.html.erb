@@ -1,11 +1,12 @@
 <turbo-frame id="<%= dom_id(@list, :header) %>">
   <header>
-    <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '›';">
-      <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item text-body-tertiary"><a href="<%= root_path %>" class="text-reset" data-turbo-frame="_top">Home</a></li>
-        <li class="breadcrumb-item active text-body-tertiary" aria-current="page">List #<%= @list.id %></li>
-      </ol>
-    </nav>
+    <%= render(InnerPlan::BreadcrumbsComponent.new) do |c| %>
+      <% c.with_breadcrumb do %>
+        <%= link_to 'Home', root_path, class: 'text-reset', data: { turbo_frame: :_top } %>
+      <% end %>
+
+      <% c.with_breadcrumb(active: true) { "List ##{@list.id}" } %>
+    <% end %>
 
     <div class="row">
       <div class="col-12">
@@ -19,7 +20,7 @@
       </div>
     </div>
 
-    <%= render 'inner_plan/shared/progress_separator', completed_count: @list.tasks.completed.count, total_count: @list.tasks.count %>
+    <%= render(InnerPlan::ProgressBarSeparatorComponent.new(completed: @list.tasks.completed.count, total: @list.tasks.count)) %>
   </header>
 
   <div class="mb-4 mt-3">
@@ -30,13 +31,12 @@
 <div data-controller="tasks-tree">
   <div data-tasks-tree-target="groupsContainer">
     <% groups = @list.groups.ordered_by_position %>
-    <% groups.each_with_index do |group, index| %>
-      <%= render partial: 'inner_plan/groups/group',
-                  locals: { group: group, show_new_task_form: index == groups.size - 1 } %>
+    <% groups.each do |group| %>
+      <%= render partial: 'inner_plan/groups/group', locals: { group: group, context: :lists_show } %>
     <% end %>
   </div>
 </div>
 
 <div class="mt-3">
-  <%= render partial: 'inner_plan/tasks/completed_tasks', locals: { list: @list } %>
+  <%= render partial: 'inner_plan/tasks/completed_tasks', locals: { list: @list, context: :lists_show } %>
 </div>
