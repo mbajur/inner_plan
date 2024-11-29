@@ -1,3 +1,5 @@
+User.create! email: 'email@example.com', password: 'ChangeMe666'
+
 list = InnerPlan::List.create! title: 'Work and such'
 group = InnerPlan::Group.create! list: list, title: 'Default', default: true
 

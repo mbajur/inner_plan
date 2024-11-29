@@ -16,6 +16,7 @@ module InnerPlan
     def create
       @group = InnerPlan::Group.find(params[:group_id])
       @task = @group.tasks.new(task_params)
+      @task.user = current_user
       @task.position = :last
 
       if @task.save

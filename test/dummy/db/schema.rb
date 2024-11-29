@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_28_094408) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_29_081036) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -59,8 +59,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_28_094408) do
     t.integer "tasks_count", default: 0
     t.integer "completed_tasks_count", default: 0
     t.integer "ongoing_tasks_count", default: 0
+    t.integer "user_id"
     t.index ["list_id", "position"], name: "index_inner_plan_groups_on_list_id_and_position", unique: true
     t.index ["list_id"], name: "index_inner_plan_groups_on_list_id"
+    t.index ["user_id"], name: "index_inner_plan_groups_on_user_id"
   end
 
   create_table "inner_plan_lists", force: :cascade do |t|
@@ -71,7 +73,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_28_094408) do
     t.integer "completed_tasks_count", default: 0
     t.integer "tasks_count", default: 0
     t.integer "ongoing_tasks_count", default: 0
+    t.integer "user_id"
     t.index ["position"], name: "index_inner_plan_lists_on_position", unique: true
+    t.index ["user_id"], name: "index_inner_plan_lists_on_user_id"
   end
 
   create_table "inner_plan_tasks", force: :cascade do |t|
@@ -83,8 +87,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_28_094408) do
     t.integer "group_id", null: false
     t.integer "position", default: 0
     t.date "due_on"
+    t.integer "user_id"
     t.index ["group_id", "position"], name: "index_inner_plan_tasks_on_group_id_and_position", unique: true
     t.index ["group_id"], name: "index_inner_plan_tasks_on_group_id"
+    t.index ["user_id"], name: "index_inner_plan_tasks_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

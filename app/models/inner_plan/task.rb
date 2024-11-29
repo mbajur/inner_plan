@@ -1,6 +1,7 @@
 module InnerPlan
   class Task < ApplicationRecord
     belongs_to :group, counter_cache: true
+    belongs_to :user, class_name: 'User', optional: true
     has_one :list, through: :group
 
     positioned on: :group
