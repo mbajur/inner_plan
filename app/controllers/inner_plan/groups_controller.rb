@@ -26,6 +26,7 @@ module InnerPlan
     def create
       @group = InnerPlan::Group.new(group_params)
       @group.list = InnerPlan::List.find(params[:list_id])
+      @group.user = current_user
       @group.position = :last
 
       if @group.save

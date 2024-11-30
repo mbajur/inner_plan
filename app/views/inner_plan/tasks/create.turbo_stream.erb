@@ -1,6 +1,6 @@
 <turbo-stream action="append" target="<%= dom_id(@group, :ongoing_tasks) %>">
   <template>
-    <%= render partial: 'inner_plan/tasks/task', locals: { task: @task }, formats: [:html] %>
+    <%= render(InnerPlan::Tasks::RowComponent.new(@task)) %>
   </template>
 </turbo-stream>
 
