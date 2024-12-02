@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_29_094523) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_30_083017) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -59,22 +59,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_29_094523) do
     t.index ["user_id"], name: "index_inner_plan_assignees_on_user_id"
   end
 
-  create_table "inner_plan_groups", force: :cascade do |t|
-    t.string "title"
-    t.boolean "default", default: false
-    t.integer "list_id", null: false
-    t.integer "position", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "tasks_count", default: 0
-    t.integer "completed_tasks_count", default: 0
-    t.integer "ongoing_tasks_count", default: 0
-    t.integer "user_id"
-    t.index ["list_id", "position"], name: "index_inner_plan_groups_on_list_id_and_position", unique: true
-    t.index ["list_id"], name: "index_inner_plan_groups_on_list_id"
-    t.index ["user_id"], name: "index_inner_plan_groups_on_user_id"
-  end
-
   create_table "inner_plan_lists", force: :cascade do |t|
     t.string "title"
     t.integer "position", default: 0
@@ -84,6 +68,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_29_094523) do
     t.integer "tasks_count", default: 0
     t.integer "ongoing_tasks_count", default: 0
     t.integer "user_id"
+    t.integer "parent_id"
+    t.index ["parent_id"], name: "index_inner_plan_lists_on_parent_id"
     t.index ["position"], name: "index_inner_plan_lists_on_position", unique: true
     t.index ["user_id"], name: "index_inner_plan_lists_on_user_id"
   end
@@ -94,12 +80,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_29_094523) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "group_id", null: false
     t.integer "position", default: 0
     t.date "due_on"
     t.integer "user_id"
-    t.index ["group_id", "position"], name: "index_inner_plan_tasks_on_group_id_and_position", unique: true
-    t.index ["group_id"], name: "index_inner_plan_tasks_on_group_id"
+    t.integer "list_id"
+    t.index ["list_id", "position"], name: "index_inner_plan_tasks_on_list_id_and_position", unique: true
+    t.index ["list_id"], name: "index_inner_plan_tasks_on_list_id"
     t.index ["user_id"], name: "index_inner_plan_tasks_on_user_id"
   end
 
@@ -122,6 +108,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_29_094523) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "inner_plan_assignees", "inner_plan_tasks", column: "task_id"
-  add_foreign_key "inner_plan_groups", "inner_plan_lists", column: "list_id"
-  add_foreign_key "inner_plan_tasks", "inner_plan_groups", column: "group_id"
+  add_foreign_key "inner_plan_lists", "inner_plan_lists", column: "parent_id"
+  add_foreign_key "inner_plan_tasks", "inner_plan_lists", column: "list_id"
 end

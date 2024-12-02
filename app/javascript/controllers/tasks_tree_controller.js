@@ -30,7 +30,6 @@ export default class extends Controller {
         Sortable.create(group, {
           handle: '.group-handle',
           group: 'group',
-          draggable: '[data-is-draggable="true"]',
           onUpdate: this.onGroupUpdate.bind(this),
           onAdd: this.onGroupAdd.bind(this),
         })
@@ -77,7 +76,7 @@ export default class extends Controller {
     patch(item.dataset.updateUrl, {
       body: {
         task: {
-          group_id: groupId,
+          list_id: groupId,
           position: { before: nextTaskId }
         }
       }
@@ -102,7 +101,7 @@ export default class extends Controller {
 
     patch(item.dataset.updateUrl, {
       body: {
-        group: {
+        list: {
           list_id: listId,
           position: { before: nextGroupId }
         }
@@ -116,7 +115,7 @@ export default class extends Controller {
 
     patch(item.dataset.updateUrl, {
       body: {
-        group: { position: { before: nextGroupId } }
+        list: { position: { before: nextGroupId } }
       }
     })
   }

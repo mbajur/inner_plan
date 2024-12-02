@@ -1,10 +1,10 @@
-<turbo-stream action="append" target="<%= dom_id(@group, :ongoing_tasks) %>">
+<turbo-stream action="append" target="<%= dom_id(@list, :ongoing_tasks) %>">
   <template>
     <%= render(InnerPlan::Tasks::RowComponent.new(@task)) %>
   </template>
 </turbo-stream>
 
-<turbo-stream action="replace" target="<%= dom_id(@group, :add_task) %>">
+<turbo-stream action="replace" target="<%= dom_id(@list, :add_task) %>">
   <template>
     <%= render template: 'inner_plan/tasks/new', formats: [:html], locals: { task: InnerPlan::Task.new } %>
   </template>

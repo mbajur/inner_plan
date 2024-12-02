@@ -1,5 +1,5 @@
 <turbo-frame id="<%= dom_id(@group, :header) %>">
-  <%= form_for @group do |f| %>
+  <%= form_with model: @group, url: group_path(@group) do |f| %>
     <header class="mb-3">
       <%= render(InnerPlan::BreadcrumbsComponent.new) do |c| %>
         <% c.with_breadcrumb do %>
@@ -11,11 +11,11 @@
         <% end %>
 
         <% c.with_breadcrumb do %>
-          <%= link_to @group.title, @group, class: 'text-reset', data: { turbo_frame: :_top } %>
+          <%= link_to @group.title, group_path(@group), class: 'text-reset', data: { turbo_frame: :_top } %>
         <% end %>
 
         <% c.with_breadcrumb(active: true) do %>
-          Edit group
+          Edit sub
         <% end %>
       <% end %>
 

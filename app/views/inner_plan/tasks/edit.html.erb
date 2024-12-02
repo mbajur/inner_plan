@@ -4,13 +4,17 @@
       <%= link_to 'Home', root_path, class: 'text-reset', data: { turbo_frame: :_top } %>
     <% end %>
 
-    <% c.with_breadcrumb do %>
-      <%= link_to @task.group.list.title, @task.group.list, class: 'text-reset' %>
-    <% end %>
-
-    <% unless @task.group.default? %>
+    <% if @task.list.sub? %>
       <% c.with_breadcrumb do %>
-        <%= link_to @task.group.title, @task.group, class: 'text-reset' %>
+        <%= link_to @task.list.list.title, @task.list.list, class: 'text-reset' %>
+      <% end %>
+
+      <% c.with_breadcrumb do %>
+        <%= link_to @task.list.title, group_path(@task.list), class: 'text-reset' %>
+      <% end %>
+    <% else %>
+      <% c.with_breadcrumb do %>
+        <%= link_to @task.list.title, @task.list, class: 'text-reset' %>
       <% end %>
     <% end %>
 

@@ -1,4 +1,4 @@
-<%= form_for [@list, @group] do |f| %>
+<%= form_with model: @group, url: list_groups_path(@list) do |f| %>
   <header class="mb-3">
     <%= render(InnerPlan::BreadcrumbsComponent.new) do |c| %>
       <% c.with_breadcrumb do %>
@@ -10,14 +10,14 @@
       <% end %>
 
       <% c.with_breadcrumb(active: true) do %>
-        New group
+        New sub
       <% end %>
     <% end %>
 
     <div class="row">
       <div class="col-6">
         <h1 class="h2">
-          <%= f.text_field :title, placeholder: 'Name this group...', class: 'form-control form-control-lg mt-2' %>
+          <%= f.text_field :title, placeholder: 'Name this sub...', class: 'form-control form-control-lg mt-2' %>
         </h1>
       </div>
     </div>

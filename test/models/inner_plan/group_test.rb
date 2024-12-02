@@ -1,7 +1,7 @@
 require "test_helper"
 
 module InnerPlan
-  class GroupTest < ActiveSupport::TestCase
+  class subTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true
     # end

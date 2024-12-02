@@ -1,5 +1,5 @@
-<turbo-frame id="<%= dom_id(@group, :add_task) %>">
-  <%= form_with model: [@group, local_assigns[:task] || @task] do |f| %>
+<turbo-frame id="<%= dom_id(@list, :add_task) %>">
+  <%= form_with model: [@list, local_assigns[:task] || @task] do |f| %>
     <div class="d-flex w-100 mb-1">
       <div class="align-top me-2 text-muted invisible" style="margin-top:-0.05rem">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" stroke-width="2">

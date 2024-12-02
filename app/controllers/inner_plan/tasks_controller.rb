@@ -6,7 +6,7 @@ module InnerPlan
 
     def new
       @task = InnerPlan::Task.new
-      @group = InnerPlan::Group.find(params[:group_id])
+      @list = InnerPlan::List.find(params[:list_id])
     end
 
     def show
@@ -14,8 +14,8 @@ module InnerPlan
     end
 
     def create
-      @group = InnerPlan::Group.find(params[:group_id])
-      @task = @group.tasks.new(task_params)
+      @list = InnerPlan::List.find(params[:list_id])
+      @task = @list.tasks.new(task_params)
       @task.user = current_user
       @task.position = :last
 
@@ -45,7 +45,7 @@ module InnerPlan
     def update_position
       @task = InnerPlan::Task.find(params[:id])
       @task.position = { before: update_positions_params[:position][:before] }
-      @task.group = InnerPlan::Group.find(update_positions_params[:group_id]) if update_positions_params[:group_id]
+      @task.list = InnerPlan::List.find(update_positions_params[:list_id]) if update_positions_params[:list_id]
       @task.save!
     end
 
@@ -74,7 +74,7 @@ module InnerPlan
     end
 
     def update_positions_params
-      params.require(:task).permit(:group_id, :position, position: :before)
+      params.require(:task).permit(:list_id, :position, position: :before)
     end
   end
 end

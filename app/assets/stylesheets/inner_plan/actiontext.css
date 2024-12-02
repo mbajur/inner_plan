@@ -19,23 +19,23 @@ trix-toolbar .trix-button-row {
   justify-content: space-between;
   overflow-x: auto; }
 
-trix-toolbar .trix-button-group {
+trix-toolbar .trix-button-sub {
   display: flex;
   margin-bottom: 10px;
   border: 1px solid #bbb;
   border-top-color: #ccc;
   border-bottom-color: #888;
   border-radius: 3px; }
-  trix-toolbar .trix-button-group:not(:first-child) {
+  trix-toolbar .trix-button-sub:not(:first-child) {
     margin-left: 1.5vw; }
     @media (max-width: 768px) {
-      trix-toolbar .trix-button-group:not(:first-child) {
+      trix-toolbar .trix-button-sub:not(:first-child) {
         margin-left: 0; } }
 
-trix-toolbar .trix-button-group-spacer {
+trix-toolbar .trix-button-sub-spacer {
   flex-grow: 1; }
   @media (max-width: 768px) {
-    trix-toolbar .trix-button-group-spacer {
+    trix-toolbar .trix-button-sub-spacer {
       display: none; } }
 
 trix-toolbar .trix-button {
@@ -185,7 +185,7 @@ trix-toolbar .trix-dialog__link-fields {
   align-items: baseline; }
   trix-toolbar .trix-dialog__link-fields .trix-input {
     flex: 1; }
-  trix-toolbar .trix-dialog__link-fields .trix-button-group {
+  trix-toolbar .trix-dialog__link-fields .trix-button-sub {
     flex: 0 0 content;
     margin: 0; }
 
@@ -260,7 +260,7 @@ trix-editor .attachment__toolbar {
   width: 100%;
   text-align: center; }
 
-trix-editor .trix-button-group {
+trix-editor .trix-button-sub {
   display: inline-flex; }
 
 trix-editor .trix-button {

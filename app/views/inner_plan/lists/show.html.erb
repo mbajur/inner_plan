@@ -33,9 +33,14 @@
 </turbo-frame>
 
 <div data-controller="tasks-tree">
+  <div data-tasks-tree-target="tasksContainer" id="<%= dom_id(@list, :ongoing_tasks) %>">
+    <% @list.tasks.ongoing.ordered_by_position.each do |task| %>
+      <%= render(InnerPlan::Tasks::RowComponent.new(task, context: local_assigns[:context])) %>
+    <% end %>
+  </div>
+
   <div data-tasks-tree-target="groupsContainer">
-    <% groups = @list.groups.ordered_by_position %>
-    <% groups.each do |group| %>
+    <% @list.lists.ordered_by_position.each do |group| %>
       <%= render partial: 'inner_plan/groups/group', locals: { group: group, context: :lists_show } %>
     <% end %>
   </div>

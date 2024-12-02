@@ -1,11 +1,11 @@
 module InnerPlan
   class ListsController < ApplicationController
     def index
-      @lists = InnerPlan::List.all.ordered_by_position
+      @lists = InnerPlan::List.root.ordered_by_position.root
     end
 
     def show
-      @list = InnerPlan::List.find(params[:id])
+      @list = InnerPlan::List.root.find(params[:id])
     end
 
     def new
@@ -15,7 +15,6 @@ module InnerPlan
     def create
       @list = InnerPlan::List.new(list_params)
       @list.user = current_user
-      @list.groups.build(default: true, title: 'Default', user: current_user)
 
       if @list.save
         redirect_to lists_path
@@ -25,11 +24,11 @@ module InnerPlan
     end
 
     def edit
-      @list = InnerPlan::List.find(params[:id])
+      @list = InnerPlan::List.root.find(params[:id])
     end
 
     def update
-      @list = InnerPlan::List.find(params[:id])
+      @list = InnerPlan::List.root.find(params[:id])
       if @list.update(list_params)
         redirect_to list_path(@list)
       else
@@ -38,7 +37,7 @@ module InnerPlan
     end
 
     def update_position
-      @list = InnerPlan::List.find(params[:id])
+      @list = InnerPlan::List.root.find(params[:id])
       @list.position = { before: update_positions_params[:position][:before] }
       @list.save!
     end
