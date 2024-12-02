@@ -1,6 +1,6 @@
 <% lists = list.lists.ordered_by_position %>
 
-<div data-tasks-tree-target="list" data-update-url="<%= update_position_list_path(list) %>" data-id="<%= list.id %>" class="mb-5">
+<div data-update-url="<%= update_position_list_path(list) %>" data-id="<%= list.id %>" class="mb-5">
   <div class="d-flex w-100 mb-1">
     <div class="dropstart" style="padding-top:1.5rem">
       <a class="align-top me-2 text-body-tertiary list-handle cm" data-bs-toggle="dropdown">
@@ -41,15 +41,13 @@
     </div>
   </div>
 
-  <div data-tasks-tree-target="group" data-id="<%= list.id %>">
-    <div data-tasks-tree-target="tasksContainer" id="<%= dom_id(list, :ongoing_tasks) %>">
-      <% list.tasks.ongoing.ordered_by_position.each do |task| %>
-        <%= render(InnerPlan::Tasks::RowComponent.new(task, context: local_assigns[:context])) %>
-      <% end %>
-    </div>
+  <div data-controller="tasks" data-tasks-list-id-value="<%= list.id %>" id="<%= dom_id(list, :ongoing_tasks) %>">
+    <% list.tasks.ongoing.ordered_by_position.each do |task| %>
+      <%= render(InnerPlan::Tasks::RowComponent.new(task, context: local_assigns[:context])) %>
+    <% end %>
   </div>
 
-  <div data-tasks-tree-target="groupsContainer">
+  <div data-controller="groups" data-tasks-list-id-value="<%= list.id %>">
     <% lists.each_with_index do |group, index| %>
       <%= render partial: 'inner_plan/groups/group', locals: { group: group, context: context } %>
     <% end %>

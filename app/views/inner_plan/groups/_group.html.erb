@@ -1,4 +1,4 @@
-<div data-tasks-tree-target="group" data-update-url="<%= update_position_group_path(group) %>" data-id="<%= group.id %>">
+<div data-update-url="<%= update_position_group_path(group) %>" data-id="<%= group.id %>">
   <div class="d-flex w-100 mb-2">
     <div class="dropstart me-2" style="margin-top:-0.15rem">
       <a class="align-top text-body-tertiary group-handle cm" data-bs-toggle="dropdown">
@@ -21,7 +21,7 @@
   </div>
 
 
-  <div data-tasks-tree-target="tasksContainer" id="<%= dom_id(group, :ongoing_tasks) %>">
+  <div data-controller="tasks" data-tasks-list-id-value="<%= group.id %>" id="<%= dom_id(group, :ongoing_tasks) %>">
     <% group.tasks.ongoing.ordered_by_position.each do |task| %>
       <%= render(InnerPlan::Tasks::RowComponent.new(task, context: local_assigns[:context])) %>
     <% end %>

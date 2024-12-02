@@ -31,12 +31,10 @@
   </div>
 </turbo-frame>
 
-<div data-controller="tasks-tree">
-  <div data-tasks-tree-target="tasksContainer" id="<%= dom_id(@group, :ongoing_tasks) %>">
-    <% @group.tasks.ongoing.ordered_by_position.each do |task| %>
-      <%= render(InnerPlan::Tasks::RowComponent.new(task, context: :groups_show)) %>
-    <% end %>
-  </div>
+<div data-controller="tasks" data-tasks-list-id="<%= @group.id %>" id="<%= dom_id(@group, :ongoing_tasks) %>">
+  <% @group.tasks.ongoing.ordered_by_position.each do |task| %>
+    <%= render(InnerPlan::Tasks::RowComponent.new(task, context: :groups_show)) %>
+  <% end %>
 </div>
 
 <div id="<%= dom_id(@group, :completed_tasks) %>">

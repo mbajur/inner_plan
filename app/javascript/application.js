@@ -3,11 +3,15 @@ import * as bootstrap from 'bootstrap'
 import "trix"
 import "@rails/actiontext"
 
-import TasksTree from "./controllers/tasks_tree_controller"
+import ListsController from "./controllers/lists_controller"
+import GroupsController from "./controllers/groups_controller"
+import TasksController from "./controllers/tasks_controller"
 import HwComboboxController from "controllers/hw_combobox_controller"
 
 // Stimulus
 window.Stimulus = Application.start()
 
-Stimulus.register("tasks-tree", TasksTree)
+Stimulus.register("lists", ListsController)
+Stimulus.register("groups", GroupsController)
+Stimulus.register("tasks", TasksController)
 Stimulus.register("hw-combobox", HwComboboxController)

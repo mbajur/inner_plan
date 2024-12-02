@@ -20,7 +20,7 @@ module InnerPlan::Tasks
       div(class: "d-flex w-100 mb-1", data_id: task.id, data_update_url: helpers.update_position_task_path(task)) {
         div(class: class_names('align-top me-2 text-body-tertiary task-handle cm', invisible: task.completed?), style: 'margin-top:-0.2rem') {
           div(class: "dropstart", style: 'padding-top: 0.1rem') {
-            a(class: "align-top text-body-tertiary list-handle cm", data_bs_toggle: "dropdown") {
+            a(class: "align-top text-body-tertiary task-handle cm", data_bs_toggle: "dropdown") {
               render(Phlex::Icons::Tabler::GripVertical.new(width: 20, height: 20))
             }
 
