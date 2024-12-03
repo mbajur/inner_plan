@@ -4,8 +4,8 @@
   </template>
 </turbo-stream>
 
-<turbo-stream action="replace" target="<%= dom_id(@list, :add_task) %>">
+<turbo-stream action="update" target="<%= dom_id(@list, :add_task) %>">
   <template>
-    <%= render template: 'inner_plan/tasks/new', formats: [:html], locals: { task: InnerPlan::Task.new } %>
+    <%= render partial: 'inner_plan/tasks/inline_form', formats: [:html], locals: { list: @list, task: InnerPlan::Task.new, form_visible: true } %>
   </template>
 </turbo-stream>

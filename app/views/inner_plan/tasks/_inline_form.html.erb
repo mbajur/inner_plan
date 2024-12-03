@@ -1,0 +1,26 @@
+<div data-controller="task-inline-form" data-task-inline-form-form-visible-value="<%= local_assigns[:form_visible] == true %>">
+  <%= form_with model: local_assigns[:task] || InnerPlan::Task.new, url: list_tasks_path(list), class: ('d-none' if local_assigns[:form_visible] != true), data: { task_inline_form_target: :form } do |f| %>
+    <div class="d-flex w-100 mb-1">
+      <div class="align-top me-2 text-muted invisible" style="margin-top:-0.05rem">
+        <%= render(Phlex::Icons::Tabler::GripVertical.new(width: 20, height: 20)) %>
+      </div>
+
+      <div class="align-top me-2" style="width:2rem; height: 2rem; margin-top: -0.12rem">
+        <button class="btn p-0 opacity-50">
+          <%= render(Phlex::Icons::Tabler::SquareRounded.new(width: 24, height: 24)) %>
+        </button>
+      </div>
+
+      <div class="form-check-label ms-1 w-100">
+        <%= f.text_field :title, autocomplete: 'off', class: 'form-control w-100', data: { task_inline_form_target: :defaultInput, action: "keydown.esc->task-inline-form#escPressed" } %>
+      </div>
+    </div>
+  <% end %>
+
+  <a href="#"
+     data-action="task-inline-form#togglerClicked"
+     data-task-inline-form-target="toggler"
+     class="btn btn-outline-secondary btn-sm ms-tasks-element">
+    Add a task
+  </a>
+</div>

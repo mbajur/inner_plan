@@ -18,7 +18,7 @@
         <li>
           <%= link_to new_list_group_path(list), class: "dropdown-item d-flex gap-2 align-items-center" do %>
             <%= render(Phlex::Icons::Tabler::Apps.new(width: 18, height: 18, class: 'text-secondary')) %>
-            <span>Add sub</span>
+            <span>Add group</span>
           <% end %>
         </li>
       </ul>
@@ -53,13 +53,9 @@
     <% end %>
   </div>
 
-  <div class="mt-2 mb-4">
-    <% last_group = lists.to_a.last || list %>
-    <turbo-frame id="<%= dom_id(last_group, :add_task) %>">
-      <a href="<%= new_list_task_path(last_group) %>" class="btn btn-outline-secondary btn-sm ms-tasks-element">
-        Add a to-do
-      </a>
-    </turbo-frame>
+  <% last_group = lists.to_a.last || list %>
+  <div class="mt-2 mb-4" id="<%= dom_id(last_group, :add_task) %>">
+    <%= render 'inner_plan/tasks/inline_form', list: last_group %>
   </div>
 
   <div class="mt-3">

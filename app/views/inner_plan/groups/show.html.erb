@@ -37,6 +37,14 @@
   <% end %>
 </div>
 
+<div class="mt-2 mb-4">
+  <turbo-frame id="<%= dom_id(@group, :add_task) %>">
+    <a href="<%= new_list_task_path(@group) %>" class="btn btn-outline-secondary btn-sm ms-tasks-element">
+      Add a to-do
+    </a>
+  </turbo-frame>
+</div>
+
 <div id="<%= dom_id(@group, :completed_tasks) %>">
   <% @group.tasks.completed.each do |task| %>
     <%= render(InnerPlan::Tasks::RowComponent.new(task, context: :groups_show)) %>

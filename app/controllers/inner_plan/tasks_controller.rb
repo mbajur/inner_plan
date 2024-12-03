@@ -22,7 +22,7 @@ module InnerPlan
       if @task.save
         @new_task = InnerPlan::Task.new
       else
-        render :new, status: :unprocessable_entity
+        render :create_failure, status: :unprocessable_entity
       end
     end
 
