@@ -12,7 +12,10 @@
       </div>
 
       <div class="form-check-label ms-1 w-100">
-        <%= f.text_field :title, autocomplete: 'off', class: 'form-control w-100', data: { task_inline_form_target: :defaultInput, action: "keydown.esc->task-inline-form#escPressed" } %>
+        <%= f.text_field :title, autocomplete: 'off',
+                                 class: 'form-control w-100',
+                                 data: { task_inline_form_target: :defaultInput,
+                                         action: "keydown.esc->task-inline-form#escPressed" } %>
       </div>
     </div>
   <% end %>

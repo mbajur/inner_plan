@@ -1,7 +1,7 @@
 module InnerPlan
   class TasksController < ApplicationController
     def index
-      @lists = InnerPlan::List.root
+      @lists = InnerPlan::List::Operation::Index.call
     end
 
     def new
@@ -14,12 +14,14 @@ module InnerPlan
     end
 
     def create
-      @list = InnerPlan::List.find(params[:list_id])
-      @task = @list.tasks.new(task_params)
-      @task.user = current_user
-      @task.position = :last
+      result = InnerPlan::Task::Operation::Create.call(
+        list_id: params[:list_id],
+        current_user: current_user,
+        params: task_params
+      )
+      @task, @list = result[:model], result[:list]
 
-      if @task.save
+      if result.success?
         @new_task = InnerPlan::Task.new
       else
         render :create_failure, status: :unprocessable_entity
@@ -31,11 +33,14 @@ module InnerPlan
     end
 
     def update
-      update_params = task_params
-      update_params[:assigned_user_ids] = update_params[:assigned_user_ids].split(',')
-      @task = InnerPlan::Task.find(params[:id])
+      # update_params = task_params
+      # update_params[:assigned_user_ids] = update_params[:assigned_user_ids].split(',')
+      result = InnerPlan::Task::Operation::Update.call(
+        params: task_params.merge(id: params[:id])
+      )
+      @task = result[:model]
 
-      if @task.update(update_params)
+      if result.success?
         redirect_to task_path(@task)
       else
         render :edit, status: :unprocessable_entity
@@ -43,15 +48,13 @@ module InnerPlan
     end
 
     def update_position
-      @task = InnerPlan::Task.find(params[:id])
-      @task.position = { before: update_positions_params[:position][:before] }
-      @task.list = InnerPlan::List.find(update_positions_params[:list_id]) if update_positions_params[:list_id]
-      @task.save!
+      result = InnerPlan::Task::Operation::UpdatePosition.call(params: params)
+      @task = result[:model]
     end
 
     def complete
-      @task = InnerPlan::Task.find(params[:id])
-      @task.complete!
+      result = InnerPlan::Task::Operation::Complete.call(params: params)
+      @task = result[:model]
 
       respond_to do |format|
         format.turbo_stream
@@ -59,8 +62,8 @@ module InnerPlan
     end
 
     def reopen
-      @task = InnerPlan::Task.find(params[:id])
-      @task.reopen!
+      result = InnerPlan::Task::Operation::Reopen.call(params: params)
+      @task = result[:model]
 
       respond_to do |format|
         format.turbo_stream { render :complete }
@@ -70,11 +73,8 @@ module InnerPlan
     private
 
     def task_params
-      params.require(:task).permit(:title, :description, :due_on, :assigned_user_ids)
-    end
-
-    def update_positions_params
-      params.require(:task).permit(:list_id, :position, position: :before)
+      # params.require(:task).permit(:title, :description, :due_on, :assigned_user_ids)
+      params.require(:task).permit(:title, :description, :due_on)
     end
   end
 end

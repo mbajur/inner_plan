@@ -10,6 +10,7 @@ require "hotwire_combobox"
 require "phlex"
 require "phlex-rails"
 require "phlex-icons-tabler"
+require "trailblazer-rails"
 
 module InnerPlan
   class << self

@@ -18,7 +18,7 @@ module InnerPlan::Tasks
         }
 
         div(class: class_names('form-check-label ms-0 w-100', 'text-body-tertiary' => task.completed?)) {
-          link_to(task.title, task, class: 'text-reset text-decoration-none me-1')
+          link_to(title, task, class: 'text-reset text-decoration-none me-1')
           render(InnerPlan::Tasks::Row::AddonsComponent.new(task))
         }
       }
@@ -27,5 +27,9 @@ module InnerPlan::Tasks
     private
 
     attr_reader :task, :context
+
+    def title
+      InnerPlan::Tasks::TitleRenderer.call(task: task)[:title]
+    end
   end
 end

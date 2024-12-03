@@ -35,7 +35,7 @@
     </div>
 
     <div class="w-100">
-      <%= f.text_field :title, class: 'form-control form-control-lg', rows: 1 %>
+      <%= f.text_field :title, class: 'form-control form-control-lg', autofocus: (params[:focus] == 'title') %>
     </div>
   </div>
 
@@ -52,7 +52,8 @@
           <div class="w-100 pe-5">
             <%= f.combobox :assigned_user_ids,
                            users_path,
-                           multiselect_chip_src: combobox_chips_users_path %>
+                           multiselect_chip_src: combobox_chips_users_path,
+                           autofocus: (params[:focus] == 'assigned_user_ids') %>
           </div>
         </div>
       </div>
@@ -66,7 +67,7 @@
 
         <div>
           <h6>Due on</h6>
-          <%= f.date_field :due_on, class: 'form-control' %>
+          <%= f.date_field :due_on, class: 'form-control', autofocus: (params[:focus] == 'due_on') %>
         </div>
       </div>
     </div>
@@ -81,7 +82,7 @@
       <h6>Description</h6>
 
       <turbo-frame id="<%= dom_id(@task, :description) %>">
-        <%= f.rich_textarea :description %>
+        <%= f.rich_textarea :description, autofocus: (params[:focus] == 'description') %>
       </turbo-frame>
     </div>
   </div>

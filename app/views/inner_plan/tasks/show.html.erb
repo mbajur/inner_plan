@@ -31,7 +31,7 @@
 
   <div class="w-100">
     <h1 class="h3">
-      <%= link_to @task.title, edit_task_path(@task), class: 'text-reset text-decoration-none' %>
+      <%= link_to @task.title, edit_task_path(@task, focus: :title), class: 'text-reset text-decoration-none' %>
     </h1>
   </div>
 
@@ -55,7 +55,7 @@
             <% render(InnerPlan::UserWithAvatarComponent.new(user)) %>
           <% end.to_sentence.html_safe %>
         <% else %>
-          <a href="<%= edit_task_path(@task) %>" class="text-decoration-none text-body-tertiary">
+          <a href="<%= edit_task_path(@task, focus: :assigned_user_ids) %>" class="text-decoration-none text-body-tertiary">
             Select assignees...
           </a>
         <% end %>
@@ -72,7 +72,7 @@
       <div>
         <h6>Due on</h6>
 
-        <a href="<%= edit_task_path(@task) %>" class="<%= class_names('text-decoration-none', 'text-body-tertiary' => @task.due_on.blank?, 'text-reset' => @task.due_on.present?) %>">
+        <a href="<%= edit_task_path(@task, focus: :due_on) %>" class="<%= class_names('text-decoration-none', 'text-body-tertiary' => @task.due_on.blank?, 'text-reset' => @task.due_on.present?) %>">
           <% if @task.due_on %>
             <%= @task.due_on.strftime('%a, %b %e, %Y') %>
           <% else %>
@@ -95,7 +95,7 @@
     <% if @task.description.present? %>
       <%= @task.description %>
     <% else %>
-      <a href="<%= edit_task_path(@task) %>" class="<%= class_names('text-decoration-none', 'text-body-tertiary' => @task.description.blank?, 'text-reset' => @task.description.present?) %>">
+      <a href="<%= edit_task_path(@task, focus: :description) %>" class="<%= class_names('text-decoration-none', 'text-body-tertiary' => @task.description.blank?, 'text-reset' => @task.description.present?) %>">
         Click to add description...
       </a>
     <% end %>
