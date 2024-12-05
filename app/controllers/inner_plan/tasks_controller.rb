@@ -11,6 +11,7 @@ module InnerPlan
 
     def show
       @task = InnerPlan::Task.find(params[:id])
+      render InnerPlan::Tasks::ShowView.new(task: @task)
     end
 
     def create
@@ -30,6 +31,7 @@ module InnerPlan
 
     def edit
       @task = InnerPlan::Task.find(params[:id])
+      render InnerPlan::Tasks::EditView.new(task: @task, focus: params[:focus])
     end
 
     def update

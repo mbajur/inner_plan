@@ -1,23 +1,14 @@
 <% if params[:context] == 'lists_index' %>
   <turbo-stream action="update" target="<%= dom_id(@task.list, :ongoing_tasks) %>">
     <template>
-      <% @task.list.tasks.ongoing.ordered_by_position.each do |task| %>
-        <%= render(InnerPlan::Tasks::RowComponent.new(task, context: params[:context])) %>
-      <% end %>
+      <%= render(InnerPlan::Lists::OngoingTasksComponent.new(@task.list, context: params[:context])) %>
     </template>
   </turbo-stream>
 
-  <turbo-stream action="replace" target="<%= dom_id(@task.list, :completed_tasks) %>">
+  <% list = @task.list.root? ? @task.list : @task.list.list %>
+  <turbo-stream action="replace" target="<%= dom_id(list, :completed_tasks) %>">
     <template>
-      <%= render partial: 'inner_plan/tasks/completed_tasks', formats: [:html], locals: { list: @task.list, context: params[:context], truncate: true } %>
-    </template>
-  </turbo-stream>
-
-  <turbo-stream action="update" target="<%= dom_id(@task.list, :completed_tasks) %>">
-    <template>
-      <% @task.list.tasks.completed.each do |task| %>
-        <%= render(InnerPlan::Tasks::RowComponent.new(task, context: params[:context])) %>
-      <% end %>
+      <%= render(InnerPlan::Lists::CompletedTasksComponent.new(list, context: params[:context])) %>
     </template>
   </turbo-stream>
 <% else %>

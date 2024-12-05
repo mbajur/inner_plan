@@ -10,6 +10,7 @@ module InnerPlan
     scope :ongoing, ->{ where(completed_at: nil) }
     scope :completed, ->{ where.not(completed_at: nil).order(completed_at: :desc) }
     scope :ordered_by_position, ->{ order(position: :asc) }
+    scope :recently_completed_first, -> { order(completed_at: :desc) }
 
     validates :title, presence: true
 

@@ -2,14 +2,17 @@ module InnerPlan
   class ListsController < ApplicationController
     def index
       @lists = InnerPlan::List.root.ordered_by_position.root
+      render InnerPlan::Lists::IndexView.new(lists: @lists)
     end
 
     def show
       @list = InnerPlan::List.root.find(params[:id])
+      render InnerPlan::Lists::ShowView.new(list: @list)
     end
 
     def new
       @list = InnerPlan::List.new
+      render InnerPlan::Lists::NewView.new(list: @list)
     end
 
     def create
@@ -25,6 +28,7 @@ module InnerPlan
 
     def edit
       @list = InnerPlan::List.root.find(params[:id])
+      render InnerPlan::Lists::EditView.new(list: @list)
     end
 
     def update

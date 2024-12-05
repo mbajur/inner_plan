@@ -2,10 +2,12 @@ module InnerPlan
   class GroupsController < ApplicationController
     def show
       @group = InnerPlan::List.sub.find(params[:id])
+      render InnerPlan::Groups::ShowView.new(group: @group)
     end
 
     def edit
       @group = InnerPlan::List.sub.find(params[:id])
+      render InnerPlan::Groups::EditView.new(group: @group)
     end
 
     def update
@@ -21,6 +23,7 @@ module InnerPlan
     def new
       @list = InnerPlan::List.root.find(params[:list_id])
       @group = @list.lists.new(params[:id])
+      render InnerPlan::Groups::NewView.new(group: @group)
     end
 
     def create
