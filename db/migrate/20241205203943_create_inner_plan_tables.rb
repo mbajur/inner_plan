@@ -1,4 +1,4 @@
-class CreateInnerPlanTablesGroups < ActiveRecord::Migration[8.0]
+class CreateInnerPlanTablesGroups < ActiveRecord::Migration[7.1]
   def change
     create_table "inner_plan_lists", force: :cascade do |t|
       t.string "title"
