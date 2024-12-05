@@ -61,7 +61,7 @@ module InnerPlan::Lists
     last_group = lists.to_a.last || list
 
     content_tag(:div, class: "mt-2 mb-4", id: dom_id(last_group, :add_task)) do
-      render InnerPlan::Tasks::InlineFormView.new(list: list_group)
+      render InnerPlan::Tasks::InlineFormView.new(list: last_group)
     end
 
     render(

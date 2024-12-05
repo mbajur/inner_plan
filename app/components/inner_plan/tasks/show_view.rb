@@ -34,7 +34,7 @@ module InnerPlan::Tasks
 
       div(class: "d-flex mb-2") do
         div(class: "text-end me-2") do
-          div(style: "display:block;margin-top:-.25 rem;margin-left:-.8 rem") do
+          div(style: "display:block;margin-top:-0.25rem;margin-left:-0.8rem") do
             render(
               InnerPlan::Tasks::CompletedTogglerComponent.new(
                 @task,
