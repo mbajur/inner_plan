@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_30_083017) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_05_203943) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -69,6 +69,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_30_083017) do
     t.integer "ongoing_tasks_count", default: 0
     t.integer "user_id"
     t.integer "parent_id"
+    t.text "description"
     t.index ["parent_id"], name: "index_inner_plan_lists_on_parent_id"
     t.index ["position"], name: "index_inner_plan_lists_on_position", unique: true
     t.index ["user_id"], name: "index_inner_plan_lists_on_user_id"

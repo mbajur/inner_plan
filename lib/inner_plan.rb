@@ -1,6 +1,7 @@
 require "inner_plan/version"
 require "inner_plan/engine"
 require "inner_plan/configuration"
+require "inner_plan/smart_array"
 
 require "turbo-rails"
 require "positioning"

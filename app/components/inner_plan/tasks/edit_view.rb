@@ -5,10 +5,13 @@ module InnerPlan::Tasks
     include Phlex::Rails::Helpers::Routes
     include Phlex::Rails::Helpers::ContentTag
     include Phlex::Rails::Helpers::FormWith
+    include Phlex::Rails::Helpers::Debug
+
+    attr_reader :focus
 
     def initialize(task:, focus: nil)
       @task = task
-      @focus = focus
+      @focus = focus&.to_sym
     end
 
     def template
@@ -42,7 +45,7 @@ module InnerPlan::Tasks
       end
 
       form_with model: @task do |f|
-        div(class: "d-flex mb-2") do
+        div(class: "d-flex mb-4") do
           div(class: "text-end me-2 opacity-50") do
             content_tag :a,
                         style:
@@ -61,51 +64,17 @@ module InnerPlan::Tasks
           end
         end
 
-        div(class: "row") do
-          div(class: "col-6") do
-            div(class: "d-flex mt-4") do
-              div(class: "me-3 text-body-tertiary", style: "margin-top:-.2 rem") do
-                render(Phlex::Icons::Tabler::User.new(width: 24, height: 24))
-              end
-              div(class: "mw-100") do
-                h6 { "Assigned to" }
-                div(class: "w-100 pe-5") do
-                  plain f.combobox :assigned_user_ids,
-                                  helpers.users_path,
-                                  multiselect_chip_src: helpers.combobox_chips_users_path,
-                                  autofocus: (@focus == "assigned_user_ids")
-                end
-              end
-            end
-          end
-          div(class: "col-6") do
-            div(class: "d-flex mt-4") do
-              div(class: "me-3 text-body-tertiary", style: "margin-top:-.2 rem") do
-                render(Phlex::Icons::Tabler::CalendarDue.new(width: 24, height: 24))
-              end
-              div do
-                h6 { "Due on" }
-                plain f.date_field :due_on,
-                                  class: "form-control",
-                                  autofocus: (@focus == "due_on")
+        InnerPlan.configuration.task_edit_view_rows.each do |row|
+          render InnerPlan::Tasks::Form::RowComponent.new do |component|
+            row.content.each do |item|
+              component.with_column(span: item.options[:span]) do
+                render(item.content.call(context: self, form: f))
               end
             end
           end
         end
 
-        div(class: "d-flex mt-4 mb-4") do
-          div(class: "me-3 text-body-tertiary", style: "margin-top:-.2 rem") do
-            render(Phlex::Icons::Tabler::FileText.new(width: 24, height: 24))
-          end
-          div(class: "pe-4") do
-            h6 { "Description" }
-            plain f.rich_textarea :description,
-                                  autofocus: (@focus == "description")
-          end
-        end
-
-        plain f.submit "Save changes", class: "btn btn-success btn-sm"
-
+        plain f.submit "Save changes", class: "btn btn-success btn-sm me-2"
         link_to "Cancel", @task, class: "btn btn-outline-secondary btn-sm"
       end
     end

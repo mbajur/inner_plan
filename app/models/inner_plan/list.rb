@@ -12,8 +12,6 @@ module InnerPlan
     scope :root, ->{ where(parent_id: nil) }
     scope :sub, ->{ where.not(parent_id: nil) }
 
-    has_rich_text :description
-
     validates :title, presence: true
 
     def root?

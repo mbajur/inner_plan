@@ -24,7 +24,7 @@ module InnerPlan::Lists
             div(class: "col-10") do
               h1(class: "h2") do
                 link_to @list.title, helpers.edit_list_path(@list), class: "text-reset text-decoration-none"
-                small(class: "fs-6 text-body-tertiary") do
+                small(class: "fs-6 text-body-tertiary ms-2") do
                   plain @list.tasks.completed.count
                   plain "/"
                   plain @list.tasks.count

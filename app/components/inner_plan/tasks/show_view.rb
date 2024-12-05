@@ -4,6 +4,8 @@ module InnerPlan::Tasks
     include Phlex::Rails::Helpers::LinkTo
     include Phlex::Rails::Helpers::Routes
 
+    attr_reader :task
+
     def initialize(task:)
       @task = task
     end
@@ -56,93 +58,19 @@ module InnerPlan::Tasks
         end
       end
 
-      div(class: "row") do
-        div(class: "col-6") do
-          div(class: "d-flex mt-4") do
-            div(class: "me-3 text-body-tertiary", style: "margin-top:-.2 rem") do
-              render(Phlex::Icons::Tabler::User.new(width: 24, height: 24))
-            end
-            div do
-              h6 { "Assigned to" }
-              if @task.assigned_users.any?
-                plain @task.assigned_users.map do |user|
-                  render(InnerPlan::UserWithAvatarComponent.new(user))
-                end.to_sentence.html_safe
-              else
-                a(
-                  href: (helpers.edit_task_path(@task, focus: :assigned_user_ids)),
-                  class: "text-decoration-none text-body-tertiary"
-                ) { " Select assignees... " }
-              end
-            end
-          end
-        end
-        div(class: "col-6") do
-          div(class: "d-flex mt-4") do
-            div(class: "me-3 text-body-tertiary", style: "margin-top:-.2 rem") do
-              render(Phlex::Icons::Tabler::CalendarDue.new(width: 24, height: 24))
-            end
-            div do
-              h6 { "Due on" }
-              a(
-                href: (helpers.edit_task_path(@task, focus: :due_on)),
-                class:
-                  (
-                    class_names(
-                      "text-decoration-none",
-                      "text-body-tertiary" => @task.due_on.blank?,
-                      "text-reset" => @task.due_on.present?
-                    )
-                  )
-              ) do
-                if @task.due_on
-                  plain @task.due_on.strftime("%a, %b %e, %Y")
-                else
-                  plain " Select a date... "
-                end
-              end
+      InnerPlan.configuration.task_show_view_rows.each do |row|
+        render InnerPlan::Tasks::Form::RowComponent.new do |component|
+          row.content.each do |item|
+            component.with_column(span: item.options[:span]) do
+              render(item.content.call(context: self))
             end
           end
         end
       end
+    end
 
-      div(class: "d-flex mt-4") do
-        div(class: "me-3 text-body-tertiary", style: "margin-top:-.2 rem") do
-          render(Phlex::Icons::Tabler::FileText.new(width: 24, height: 24))
-        end
-        div(class: "pe-4") do
-          h6 { "Description" }
-          if @task.description.present?
-            plain @task.description.to_s
-          else
-            a(
-              href: (helpers.edit_task_path(@task, focus: :description)),
-              class:
-                (
-                  class_names(
-                    "text-decoration-none",
-                    "text-body-tertiary" => @task.description.blank?,
-                    "text-reset" => @task.description.present?
-                  )
-                )
-            ) { " Click to add description... " }
-          end
-        end
-      end
-
-      div(class: "d-flex mt-4") do
-        div(class: "me-3 text-body-tertiary", style: "margin-top:-.2 rem") do
-          render(Phlex::Icons::Tabler::CirclePlus.new(width: 24, height: 24))
-        end
-        div(class: "pe-4") do
-          h6 { "Created by" }
-          div(class: "text-body-tertiary") do
-            render(InnerPlan::UserWithAvatarComponent.new(@task.user))
-            plain " on "
-            plain @task.created_at.strftime("%a, %b %e, %Y")
-          end
-        end
-      end
+    def description
+      InnerPlan::Tasks::DescriptionRenderer.call(task: @task)[:description]
     end
   end
 end

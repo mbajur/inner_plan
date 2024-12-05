@@ -2,8 +2,6 @@ module InnerPlan
   class Task < ApplicationRecord
     belongs_to :list
     belongs_to :user, class_name: 'User', optional: true
-    has_many :assignees
-    has_many :assigned_users, class_name: 'User', through: :assignees, source: :user
 
     positioned on: :list
 
@@ -13,8 +11,6 @@ module InnerPlan
     scope :recently_completed_first, -> { order(completed_at: :desc) }
 
     validates :title, presence: true
-
-    has_rich_text :description
 
     def ongoing?
       !completed?

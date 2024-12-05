@@ -18,7 +18,7 @@ module InnerPlan
       result = InnerPlan::Task::Operation::Create.call(
         list_id: params[:list_id],
         current_user: current_user,
-        params: task_params
+        params: params.fetch(:task, {})
       )
       @task, @list = result[:model], result[:list]
 
@@ -35,10 +35,8 @@ module InnerPlan
     end
 
     def update
-      # update_params = task_params
-      # update_params[:assigned_user_ids] = update_params[:assigned_user_ids].split(',')
       result = InnerPlan::Task::Operation::Update.call(
-        params: task_params.merge(id: params[:id])
+        params: params.fetch(:task, {}).merge(id: params[:id])
       )
       @task = result[:model]
 
@@ -70,13 +68,6 @@ module InnerPlan
       respond_to do |format|
         format.turbo_stream { render :complete }
       end
-    end
-
-    private
-
-    def task_params
-      # params.require(:task).permit(:title, :description, :due_on, :assigned_user_ids)
-      params.require(:task).permit(:title, :description, :due_on)
     end
   end
 end

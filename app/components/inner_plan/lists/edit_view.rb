@@ -47,8 +47,9 @@ module InnerPlan::Lists
             )
           end
           div(class: "mb-2") do
-            plain f.rich_textarea :description,
-                                  placeholder: "Add extra details or attach a file..."
+            plain f.text_area :description,
+                              class: 'form-control',
+                              placeholder: "Add extra details or attach a file..."
           end
           div(class: "mb-5") do
             plain f.submit "Save changes", class: "btn btn-success btn-sm"

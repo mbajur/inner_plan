@@ -13,9 +13,5 @@ InnerPlan::Engine.routes.draw do
     end
   end
 
-  resources :users, only: [:index] do
-    post :combobox_chips, on: :collection
-  end
-
   root to: 'lists#index'
 end
