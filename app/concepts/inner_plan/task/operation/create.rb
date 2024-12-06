@@ -15,7 +15,12 @@ module InnerPlan::Task::Operation
     end
 
     def initialize_model(ctx, params:, **)
-      ctx[:model] = InnerPlan::Task.new(params)
+      model = InnerPlan::Task.new
+      model.title = params[:title]
+      model.description = params[:description]
+      model.due_on = params[:due_on]
+
+      ctx[:model] = model
     end
 
     def assign_list(ctx, list:, model:, **)

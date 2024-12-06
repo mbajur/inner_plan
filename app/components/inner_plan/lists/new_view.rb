@@ -27,6 +27,7 @@ module InnerPlan::Lists
       end
 
       form_with model: @list do |f|
+        plain f.object.errors.full_messages.to_sentence
         div(class: "mb-3") do
           plain f.text_field :title,
                             class: "form-control form-control-lg",
@@ -35,12 +36,12 @@ module InnerPlan::Lists
         end
 
         div(class: "mb-3") do
-          plain f.rich_textarea :description,
-                                placeholder: "Add extra details or attach a file..."
+          plain f.text_area :description,
+                            class: 'form-control',
+                            placeholder: "Add extra details or attach a file..."
         end
 
-        plain f.submit "Create list", class: "btn btn-success btn-sm"
-
+        plain f.submit "Create list", class: "btn btn-success btn-sm me-2"
         link_to "Cancel", helpers.lists_path, class: "btn btn-outline-secondary btn-sm"
       end
     end

@@ -4,7 +4,8 @@ module InnerPlan
 
     initializer "inner_plan.importmap", before: "importmap" do |app|
       # https://github.com/rails/importmap-rails#composing-import-maps
-      app.config.importmap.paths << root.join("config/importmap.rb")
+      # app.config.importmap.paths << root.join("config/importmap.rb")
+      InnerPlan.importmap.draw(root.join("config/importmap.rb"))
 
       # https://github.com/rails/importmap-rails#sweeping-the-cache-in-development-and-test
       app.config.importmap.cache_sweepers << root.join("app/javascript")

@@ -26,7 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "positioning"
   spec.add_dependency "importmap-rails"
   spec.add_dependency "image_processing", ">= 1.2"
-  spec.add_dependency "hotwire_combobox"
   spec.add_dependency "phlex", ">= 1.11"
   spec.add_dependency "phlex-rails"
   spec.add_dependency "phlex-icons-tabler", '~> 1.6'

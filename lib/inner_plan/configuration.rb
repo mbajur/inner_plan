@@ -2,13 +2,15 @@
 
 module InnerPlan
   class Configuration
-    attr_accessor :user_class_name
-    attr_accessor :task_edit_view_rows
-    attr_accessor :task_show_view_rows
-    attr_accessor :task_row_addons
+    attr_accessor :user_class_name,
+                  :current_user_method,
+                  :task_edit_view_rows,
+                  :task_show_view_rows,
+                  :task_row_addons
 
     def initialize
       @user_class_name = 'User'
+      @current_user_method = :current_user
 
       # Tasks::EditView rows
       due_on_item = proc { |context:, form:|
@@ -103,9 +105,9 @@ module InnerPlan
       ])
 
       @task_row_addons = InnerPlan::SmartArray.new([
-        InnerPlan::SmartArray::Item.new(:group, {}, InnerPlan::Tasks::Row::GroupAddonComponent),
-        InnerPlan::SmartArray::Item.new(:group, {}, InnerPlan::Tasks::Row::DescriptionAddonComponent),
-        InnerPlan::SmartArray::Item.new(:group, {}, InnerPlan::Tasks::Row::DueOnAddonComponent),
+        ::InnerPlan::SmartArray::Item.new(:group, {}, 'InnerPlan::Tasks::Row::GroupAddonComponent'),
+        ::InnerPlan::SmartArray::Item.new(:description, {}, 'InnerPlan::Tasks::Row::DescriptionAddonComponent'),
+        ::InnerPlan::SmartArray::Item.new(:due_on, {}, 'InnerPlan::Tasks::Row::DueOnAddonComponent'),
       ])
     end
   end

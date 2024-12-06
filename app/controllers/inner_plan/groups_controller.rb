@@ -29,7 +29,7 @@ module InnerPlan
     def create
       @group = InnerPlan::List.new(group_params)
       @group.list = InnerPlan::List.root.find(params[:list_id])
-      @group.user = current_user
+      @group.user = current_inner_plan_user
       @group.position = :last
 
       if @group.save

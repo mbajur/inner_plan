@@ -8,10 +8,10 @@ module InnerPlan
     end
 
     def template
-      image_tag(@user.profile.avatar_url, size: @avatar_size,
-                                          class: 'rounded-circle me-1',
-                                          style: 'margin-top:-0.1rem')
-      plain @user.profile.to_s
+      image_tag(@user.inner_plan_avatar_url, size: @avatar_size,
+                                             class: 'rounded-circle me-1',
+                                             style: 'margin-top:-0.1rem')
+      plain @user.inner_plan_to_s
     end
   end
 end

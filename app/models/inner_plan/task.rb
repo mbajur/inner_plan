@@ -1,7 +1,8 @@
 module InnerPlan
   class Task < ApplicationRecord
     belongs_to :list
-    belongs_to :user, class_name: 'User', optional: true
+    belongs_to :user, class_name: InnerPlan.configuration.user_class_name,
+                      optional: true
 
     positioned on: :list
 

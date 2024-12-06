@@ -7,7 +7,6 @@ require "turbo-rails"
 require "positioning"
 require "importmap-rails"
 require "image_processing"
-require "hotwire_combobox"
 require "phlex"
 require "phlex-rails"
 require "phlex-icons-tabler"
@@ -23,4 +22,6 @@ module InnerPlan
       yield(configuration)
     end
   end
+
+  mattr_accessor :importmap, default: Importmap::Map.new
 end

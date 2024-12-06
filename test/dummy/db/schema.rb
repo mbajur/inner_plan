@@ -42,13 +42,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_203943) do
     t.index ["user_id"], name: "index_inner_plan_tasks_on_user_id"
   end
 
-  create_table "inner_plan_user_profiles", force: :cascade do |t|
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_inner_plan_user_profiles_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

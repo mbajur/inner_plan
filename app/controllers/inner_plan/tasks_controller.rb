@@ -17,7 +17,7 @@ module InnerPlan
     def create
       result = InnerPlan::Task::Operation::Create.call(
         list_id: params[:list_id],
-        current_user: current_user,
+        current_user: current_inner_plan_user,
         params: params.fetch(:task, {})
       )
       @task, @list = result[:model], result[:list]

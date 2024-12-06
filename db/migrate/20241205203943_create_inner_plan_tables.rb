@@ -1,4 +1,4 @@
-class CreateInnerPlanTablesGroups < ActiveRecord::Migration[7.1]
+class CreateInnerPlanTables < ActiveRecord::Migration[7.1]
   def change
     create_table "inner_plan_lists", force: :cascade do |t|
       t.string "title"
@@ -29,13 +29,6 @@ class CreateInnerPlanTablesGroups < ActiveRecord::Migration[7.1]
       t.index ["list_id", "position"], name: "index_inner_plan_tasks_on_list_id_and_position", unique: true
       t.index ["list_id"], name: "index_inner_plan_tasks_on_list_id"
       t.index ["user_id"], name: "index_inner_plan_tasks_on_user_id"
-    end
-
-    create_table "inner_plan_user_profiles", force: :cascade do |t|
-      t.integer "user_id"
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
-      t.index ["user_id"], name: "index_inner_plan_user_profiles_on_user_id"
     end
 
     add_foreign_key "inner_plan_lists", "inner_plan_lists", column: "parent_id"

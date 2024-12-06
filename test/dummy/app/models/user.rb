@@ -4,9 +4,16 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :profile, class_name: 'InnerPlan::UserProfile'
-
   def to_combobox_display
     email
+  end
+
+  def inner_plan_avatar_url
+    hash = Digest::SHA256.hexdigest(email.downcase)
+    "https://gravatar.com/avatar/#{hash}?s=100&default=mp"
+  end
+
+  def inner_plan_to_s
+    email.split('@').first
   end
 end

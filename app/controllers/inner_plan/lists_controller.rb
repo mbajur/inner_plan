@@ -17,12 +17,12 @@ module InnerPlan
 
     def create
       @list = InnerPlan::List.new(list_params)
-      @list.user = current_user
+      @list.user = current_inner_plan_user
 
       if @list.save
         redirect_to lists_path
       else
-        render :new, status: :unprocessable_entity
+        render InnerPlan::Lists::NewView.new(list: @list), status: :unprocessable_entity
       end
     end
 
@@ -36,7 +36,7 @@ module InnerPlan
       if @list.update(list_params)
         redirect_to list_path(@list)
       else
-        render :edit
+        render InnerPlan::Lists::EditView.new(list: @list)
       end
     end
 
