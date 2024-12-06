@@ -17,7 +17,7 @@ module InnerPlan::Tasks
           render(InnerPlan::Tasks::CompletedTogglerComponent.new(task, context: context))
         }
 
-        div(class: class_names('form-check-label ms-0 w-100', 'text-body-tertiary' => task.completed?)) {
+        div(class: class_names('form-check-label ms-1 w-100', 'text-body-tertiary' => task.completed?)) {
           link_to(title, task, class: 'text-reset text-decoration-none me-1')
           render(InnerPlan::Tasks::Row::AddonsComponent.new(task))
         }

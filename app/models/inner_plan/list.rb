@@ -21,5 +21,9 @@ module InnerPlan
     def sub?
       parent_id.present?
     end
+
+    def to_param
+      [id.to_s, title.first(20).to_url].join('-')
+    end
   end
 end
