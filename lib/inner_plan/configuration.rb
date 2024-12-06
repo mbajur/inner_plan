@@ -6,11 +6,13 @@ module InnerPlan
                   :current_user_method,
                   :task_edit_view_rows,
                   :task_show_view_rows,
-                  :task_row_addons
+                  :task_row_addons,
+                  :additional_importmap_modules
 
     def initialize
       @user_class_name = 'User'
       @current_user_method = :current_user
+      @additional_importmap_modules = []
 
       # Tasks::EditView rows
       due_on_item = proc { |context:, form:|

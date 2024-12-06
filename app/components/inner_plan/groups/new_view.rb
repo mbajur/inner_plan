@@ -51,8 +51,9 @@ module InnerPlan::Groups
         end
 
         div(class: "mb-2") do
-          plain f.rich_textarea :description,
-                                placeholder: "Add extra details or attach a file..."
+          plain f.text_area :description,
+                            class: 'form-control',
+                            placeholder: "Add extra details or attach a file..."
         end
 
         div(class: "mb-5") do
