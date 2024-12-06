@@ -1,7 +1,7 @@
 module InnerPlan
   class ListsController < ApplicationController
     def index
-      @lists = InnerPlan::List.root.ordered_by_position.root
+      @lists = InnerPlan::List::Operation::Index.call[:models]
       render InnerPlan::Lists::IndexView.new(lists: @lists)
     end
 

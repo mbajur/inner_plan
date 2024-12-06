@@ -4,8 +4,8 @@ module InnerPlan::List::Operation
 
     private
 
-    def assign_attributes(ctx, **)
-      ctx[:models] = InnerPlan::List.root
+    def find_models(ctx, **)
+      ctx[:models] = InnerPlan::List.ordered_by_position.root
     end
   end
 end
