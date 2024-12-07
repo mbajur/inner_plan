@@ -1,22 +1,29 @@
 module InnerPlan
   class ListsController < ApplicationController
     def index
-      @lists = InnerPlan::List::Operation::Index.call[:models]
+      authorize InnerPlan::List
+      @lists = InnerPlan::List::Operation::Index.call(
+        current_user: current_inner_plan_user
+      )[:models]
       render InnerPlan::Lists::IndexView.new(lists: @lists)
     end
 
     def show
-      @list = InnerPlan::List.root.find(params[:id])
+      @list = find_list
+      authorize @list
       render InnerPlan::Lists::ShowView.new(list: @list)
     end
 
     def new
       @list = InnerPlan::List.new
+      authorize @list
       render InnerPlan::Lists::NewView.new(list: @list)
     end
 
     def create
       @list = InnerPlan::List.new(list_params)
+      authorize @list
+
       @list.user = current_inner_plan_user
 
       if @list.save
@@ -27,12 +34,16 @@ module InnerPlan
     end
 
     def edit
-      @list = InnerPlan::List.root.find(params[:id])
+      @list = find_list
+      authorize @list
+
       render InnerPlan::Lists::EditView.new(list: @list)
     end
 
     def update
-      @list = InnerPlan::List.root.find(params[:id])
+      @list = find_list
+      authorize @list
+
       if @list.update(list_params)
         redirect_to list_path(@list)
       else
@@ -41,12 +52,18 @@ module InnerPlan
     end
 
     def update_position
-      @list = InnerPlan::List.root.find(params[:id])
+      @list = find_list
+      authorize @list
+
       @list.position = { before: update_positions_params[:position][:before] }
       @list.save!
     end
 
     private
+
+    def find_list
+      @find_list ||= policy_scope(InnerPlan::List).root.find(params[:id])
+    end
 
     def list_params
       params.require(:list).permit(:title, :description)

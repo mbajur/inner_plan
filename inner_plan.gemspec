@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "phlex-icons-tabler", '~> 1.6'
   spec.add_dependency "trailblazer-rails"
   spec.add_dependency "stringex"
+  spec.add_dependency "pundit", ">= 2.4.0"
 end

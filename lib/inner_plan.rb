@@ -11,6 +11,7 @@ require "phlex-rails"
 require "phlex-icons-tabler"
 require "trailblazer-rails"
 require "stringex"
+require "pundit"
 
 module InnerPlan
   class << self
