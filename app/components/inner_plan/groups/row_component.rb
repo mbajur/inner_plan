@@ -10,7 +10,7 @@ module InnerPlan::Groups
 
     def template
       div(data: { update_url: helpers.update_position_group_path(list), id: list.id }) {
-        div(class: 'd-flex w-100 mb-2') {
+        div(class: 'd-flex w-100 mb-1', style: 'line-height: 1.7rem') {
           render(InnerPlan::Groups::Row::HandleComponent.new(list))
 
           div(class: "ms-1 w-100") {

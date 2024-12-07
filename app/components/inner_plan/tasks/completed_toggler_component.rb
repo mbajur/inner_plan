@@ -10,7 +10,7 @@ module InnerPlan::Tasks
 
     def template
       if task.ongoing?
-        button_to(helpers.complete_task_path(task, context: context), method: :post, class: 'btn p-0 opacity-50') {
+        button_to(helpers.complete_task_path(task, context: context), method: :post, class: 'btn p-0 opacity-50', style: 'height:24px;display:block;margin-top:-1px', form: { style: 'height:24px;display:block;' }) {
           render(Phlex::Icons::Tabler::SquareRounded.new(width: size, height: size))
         }
       else

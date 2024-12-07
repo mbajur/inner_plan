@@ -10,9 +10,9 @@ module InnerPlan::Tasks::Row
     def template
       div(
         class: class_names('align-top me-2 text-body-tertiary task-handle cm', invisible: task.completed?),
-        style: 'margin-top:-0.2rem'
+        style: 'line-height: 1.6rem'
       ) {
-        div(class: "dropstart", style: 'padding-top: 0.1rem') {
+        div(class: "dropstart") {
           a(class: "align-top text-body-tertiary task-handle cm", data_bs_toggle: "dropdown") {
             render(Phlex::Icons::Tabler::GripVertical.new(width: 20, height: 20))
           }

@@ -5,8 +5,8 @@ module InnerPlan::Tasks::Row
     end
 
     def template
-      span(class: "text-body-tertiary d-inline-flex align-items-center") {
-        render(Phlex::Icons::Tabler::FileText.new(width: 15, height: 15))
+      span(class: "text-body-tertiary") {
+        render(Phlex::Icons::Tabler::FileText.new(width: 15, height: 15, style: 'margin-top:-3px'))
       }
     end
   end

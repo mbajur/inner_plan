@@ -23,7 +23,7 @@ module InnerPlan
     end
 
     def to_param
-      [id.to_s, title.first(20).to_url].join('-')
+      [id.to_s, title.to_url(limit: 50, truncate_words: false)].join('-')
     end
   end
 end
