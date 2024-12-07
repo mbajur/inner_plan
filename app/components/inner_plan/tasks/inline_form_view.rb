@@ -1,5 +1,5 @@
 module InnerPlan::Tasks
-  class InlineFormView < ApplicationView
+  class InlineFormView < InnerPlan::ApplicationView
     include Phlex::Rails::Helpers::DOMID
     include Phlex::Rails::Helpers::LinkTo
     include Phlex::Rails::Helpers::Routes

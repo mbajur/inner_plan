@@ -1,5 +1,5 @@
 module InnerPlan::Groups
-  class EditView < ApplicationView
+  class EditView < InnerPlan::ApplicationView
     include Phlex::Rails::Helpers::DOMID
     include Phlex::Rails::Helpers::LinkTo
     include Phlex::Rails::Helpers::Routes

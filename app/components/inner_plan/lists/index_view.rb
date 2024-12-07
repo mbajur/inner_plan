@@ -1,5 +1,5 @@
 module InnerPlan::Lists
-  class IndexView < ApplicationView
+  class IndexView < InnerPlan::ApplicationView
     include Phlex::Rails::Helpers::DOMID
     include Phlex::Rails::Helpers::LinkTo
     include Phlex::Rails::Helpers::Routes

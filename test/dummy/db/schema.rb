@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_05_203943) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_07_085212) do
   create_table "inner_plan_lists", force: :cascade do |t|
     t.string "title"
     t.integer "position", default: 0

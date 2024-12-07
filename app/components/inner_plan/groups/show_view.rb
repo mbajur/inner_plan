@@ -1,5 +1,5 @@
 module InnerPlan::Groups
-  class ShowView < ApplicationView
+  class ShowView < InnerPlan::ApplicationView
     include Phlex::Rails::Helpers::DOMID
     include Phlex::Rails::Helpers::LinkTo
     include Phlex::Rails::Helpers::Routes

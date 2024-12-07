@@ -1,8 +1,10 @@
 module InnerPlan::Tasks
-  class ShowView < ApplicationView
+  class ShowView < InnerPlan::ApplicationView
     include Phlex::Rails::Helpers::ClassNames
     include Phlex::Rails::Helpers::LinkTo
     include Phlex::Rails::Helpers::Routes
+    include Phlex::Rails::Helpers::DOMID
+    include Phlex::Rails::Helpers::ContentTag
 
     attr_reader :task
 
@@ -62,15 +64,11 @@ module InnerPlan::Tasks
         render InnerPlan::Tasks::Form::RowComponent.new do |component|
           row.content.each do |item|
             component.with_column(span: item.options[:span]) do
-              render(item.content.call(context: self))
+              render(item.content.new(task: @task))
             end
           end
         end
       end
-    end
-
-    def description
-      InnerPlan::Tasks::DescriptionRenderer.call(task: @task)[:description]
     end
   end
 end

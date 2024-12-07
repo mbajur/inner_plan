@@ -6,7 +6,7 @@ module InnerPlan::Tasks::Row
 
     def template
       span(class: "text-body-tertiary") {
-        render(Phlex::Icons::Tabler::FileText.new(width: 15, height: 15, style: 'margin-top:-3px'))
+        render(Phlex::Icons::Tabler::AlignJustified.new(width: 15, height: 15, style: 'margin-top:-3px'))
       }
     end
   end
