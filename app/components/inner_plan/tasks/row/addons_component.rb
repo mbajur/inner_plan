@@ -7,7 +7,7 @@ module InnerPlan::Tasks::Row
     def template
       div(class: 'd-inline-flex align-items-center gap-1') {
         InnerPlan.configuration.task_row_addons.each do |item|
-          addon_instance = item.content.new(task)
+          addon_instance = item.content.constantize.new(task)
           next unless addon_instance.render?
 
           render(addon_instance)

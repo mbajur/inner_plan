@@ -42,22 +42,22 @@ module InnerPlan
       # Tasks::ShowView rows
       @task_show_view_rows = InnerPlan::SmartArray.new([
         InnerPlan::SmartArray::Item.new(:primary_row, {}, InnerPlan::SmartArray.new([
-          InnerPlan::SmartArray::Item.new(:due_on, { span: 6 }, InnerPlan::Tasks::Show::Items::DueOnComponent),
+          InnerPlan::SmartArray::Item.new(:due_on, { span: 6 }, 'InnerPlan::Tasks::Show::Items::DueOnComponent'),
         ])),
 
         InnerPlan::SmartArray::Item.new(:secondary_row, {}, InnerPlan::SmartArray.new([
-          InnerPlan::SmartArray::Item.new(:description, { span: 12 }, InnerPlan::Tasks::Show::Items::DescriptionComponent),
+          InnerPlan::SmartArray::Item.new(:description, { span: 12 }, 'InnerPlan::Tasks::Show::Items::DescriptionComponent'),
         ])),
 
         InnerPlan::SmartArray::Item.new(:tertiary_row, {}, InnerPlan::SmartArray.new([
-          InnerPlan::SmartArray::Item.new(:created_by, { span: 6 }, InnerPlan::Tasks::Show::Items::CreatedByComponent),
+          InnerPlan::SmartArray::Item.new(:created_by, { span: 6 }, 'InnerPlan::Tasks::Show::Items::CreatedByComponent'),
         ])),
       ])
 
       @task_row_addons = InnerPlan::SmartArray.new([
-        ::InnerPlan::SmartArray::Item.new(:group, {}, InnerPlan::Tasks::Row::GroupAddonComponent),
-        ::InnerPlan::SmartArray::Item.new(:description, {}, InnerPlan::Tasks::Row::DescriptionAddonComponent),
-        ::InnerPlan::SmartArray::Item.new(:due_on, {}, InnerPlan::Tasks::Row::DueOnAddonComponent),
+        ::InnerPlan::SmartArray::Item.new(:group, {}, 'InnerPlan::Tasks::Row::GroupAddonComponent'),
+        ::InnerPlan::SmartArray::Item.new(:description, {}, 'InnerPlan::Tasks::Row::DescriptionAddonComponent'),
+        ::InnerPlan::SmartArray::Item.new(:due_on, {}, 'InnerPlan::Tasks::Row::DueOnAddonComponent'),
       ])
     end
   end

@@ -64,7 +64,7 @@ module InnerPlan::Tasks
         render InnerPlan::Tasks::Form::RowComponent.new do |component|
           row.content.each do |item|
             component.with_column(span: item.options[:span]) do
-              render(item.content.new(task: @task))
+              render(item.content.constantize.new(task: @task))
             end
           end
         end
