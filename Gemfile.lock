@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     inner_plan (0.1.0)
-      image_processing (>= 1.2)
       importmap-rails
       phlex (>= 1.11)
       phlex-icons-tabler (~> 1.6)
@@ -109,16 +108,12 @@ GEM
       representable (>= 3.1.1, < 4)
     drb (2.2.1)
     erubi (1.13.0)
-    ffi (1.17.0-x86_64-darwin)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
     hirb (0.7.3)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
-    image_processing (1.13.0)
-      mini_magick (>= 4.9.5, < 5)
-      ruby-vips (>= 2.0.17, < 3)
     importmap-rails (2.0.3)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -137,7 +132,6 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
-    mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.25.2)
     net-imap (0.5.1)
@@ -219,9 +213,6 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    ruby-vips (2.2.2)
-      ffi (~> 1.12)
-      logger
     securerandom (0.3.2)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
