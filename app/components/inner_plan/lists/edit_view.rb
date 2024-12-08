@@ -46,14 +46,20 @@ module InnerPlan::Lists
               )
             )
           end
-          div(class: "mb-2") do
-            plain f.text_area :description,
-                              class: 'form-control',
-                              placeholder: "Add extra details or attach a file..."
+
+          InnerPlan.configuration.list_edit_view_rows.each do |row|
+            render InnerPlan::Tasks::Form::RowComponent.new do |component|
+              row.content.each do |item|
+                component.with_column(span: item.options[:span]) do
+                  render(item.content.constantize.new(form: f))
+                end
+              end
+            end
           end
+
           div(class: "mb-5") do
             plain f.submit "Save changes", class: "btn btn-success btn-sm"
-            link_to "Cancel", @list, class: "btn btn-outline-secondary btn-sm"
+            link_to "Cancel", @list, class: "btn btn-outline-secondary btn-sm ms-2"
           end
         end
       end

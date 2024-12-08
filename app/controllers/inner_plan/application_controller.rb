@@ -6,6 +6,10 @@ module InnerPlan
 
     private
 
+    def pundit_user
+      current_inner_plan_user
+    end
+
     def current_inner_plan_user
       @current_inner_plan_user ||=
         public_send(InnerPlan.configuration.current_user_method)

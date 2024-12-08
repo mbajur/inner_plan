@@ -21,12 +21,13 @@ module InnerPlan
     end
 
     def create
-      @list = InnerPlan::List.new(list_params)
-      authorize @list
+      result = InnerPlan::List::Operation::Create.call(
+        current_user: current_inner_plan_user,
+        params: params.fetch(:list, {})
+      )
+      @list = result[:model]
 
-      @list.user = current_inner_plan_user
-
-      if @list.save
+      if result.success?
         redirect_to lists_path
       else
         render InnerPlan::Lists::NewView.new(list: @list), status: :unprocessable_entity
@@ -44,10 +45,16 @@ module InnerPlan
       @list = find_list
       authorize @list
 
-      if @list.update(list_params)
+      result = InnerPlan::List::Operation::Update.call(
+        model: @list,
+        params: params.fetch(:list, {}).merge(id: params[:id])
+      )
+      @list = result[:model]
+
+      if result.success?
         redirect_to list_path(@list)
       else
-        render InnerPlan::Lists::EditView.new(list: @list)
+        render InnerPlan::Lists::EditView.new(list: @list), status: :unprocessable_entity
       end
     end
 

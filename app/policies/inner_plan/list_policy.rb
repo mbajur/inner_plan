@@ -27,5 +27,8 @@ module InnerPlan
     def update_position?
       update?
     end
+
+    class Scope < InnerPlan::ApplicationPolicy::Scope
+    end
   end
 end

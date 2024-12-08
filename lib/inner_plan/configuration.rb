@@ -6,6 +6,7 @@ module InnerPlan
                   :current_user_method,
                   :task_edit_view_rows,
                   :task_show_view_rows,
+                  :list_edit_view_rows,
                   :task_row_addons,
                   :additional_importmap_modules
 
@@ -51,6 +52,12 @@ module InnerPlan
 
         InnerPlan::SmartArray::Item.new(:tertiary_row, {}, InnerPlan::SmartArray.new([
           InnerPlan::SmartArray::Item.new(:created_by, { span: 6 }, 'InnerPlan::Tasks::Show::Items::CreatedByComponent'),
+        ])),
+      ])
+
+      @list_edit_view_rows = InnerPlan::SmartArray.new([
+        InnerPlan::SmartArray::Item.new(:primary_row, {}, InnerPlan::SmartArray.new([
+          InnerPlan::SmartArray::Item.new(:description, { span: 12 }, 'InnerPlan::Lists::Edit::Items::DescriptionComponent'),
         ])),
       ])
 
