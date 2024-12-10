@@ -9,7 +9,7 @@ module InnerPlan::Tasks::Row
 
     def template
       div(
-        class: class_names('align-top me-2 text-body-tertiary task-handle cm', invisible: task.completed?),
+        class: class_names('align-top me-2 text-body-tertiary', invisible: task.completed?),
         style: 'line-height: 1.6rem'
       ) {
         div(class: "dropstart") {

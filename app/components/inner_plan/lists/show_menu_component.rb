@@ -1,13 +1,14 @@
 module InnerPlan::Lists
   class ShowMenuComponent < Phlex::HTML
     include Phlex::Rails::Helpers::LinkTo
+    include Phlex::Rails::Helpers::DOMID
 
     def initialize(list)
       @list = list
     end
 
     def template
-      div(class: "dropdown") {
+      div(class: "dropdown", id: dom_id(@list, :show_menu)) {
         button(class: "btn btn-link text-reset p-0 opacity-50", data_bs_toggle: "dropdown") {
           render(Phlex::Icons::Tabler::DotsCircleHorizontal.new(width: 35, height: 35))
         }

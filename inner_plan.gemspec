@@ -31,4 +31,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "trailblazer-rails"
   spec.add_dependency "stringex"
   spec.add_dependency "pundit", ">= 2.4.0"
+
+  spec.add_development_dependency("rspec-rails")
+  spec.add_development_dependency("cuprite")
+  spec.add_development_dependency("simplecov")
+  spec.add_development_dependency("factory_bot")
 end

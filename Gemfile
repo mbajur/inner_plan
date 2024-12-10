@@ -15,4 +15,6 @@ gem "sprockets-rails"
 
 gem "devise"
 
-gem "web-console", ">= 3.3.0"
+group :development do
+  gem "web-console", ">= 3.3.0"
+end

@@ -11,7 +11,14 @@ module InnerPlan::Lists
     def template
       lists = list.lists.ordered_by_position
 
-      div(data: { update_url: helpers.update_position_list_path(list), id: list.id }, class: "mb-5") {
+      div(
+        id: dom_id(@list),
+        data: {
+          update_url: helpers.update_position_list_path(list),
+          id: list.id
+        },
+        class: "mb-5"
+      ) {
         div(class: "d-flex w-100 mb-1") {
           render(InnerPlan::Lists::Row::HandleComponent.new(list))
 

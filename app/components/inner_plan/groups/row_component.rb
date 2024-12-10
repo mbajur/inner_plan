@@ -9,7 +9,10 @@ module InnerPlan::Groups
     end
 
     def template
-      div(data: { update_url: helpers.update_position_group_path(list), id: list.id }) {
+      div(
+        id: dom_id(@list),
+        data: { update_url: helpers.update_position_group_path(list), id: list.id }
+      ) {
         div(class: 'd-flex w-100 mb-1', style: 'line-height: 1.7rem') {
           render(InnerPlan::Groups::Row::HandleComponent.new(list))
 

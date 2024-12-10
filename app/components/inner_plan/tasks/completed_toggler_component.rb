@@ -1,6 +1,7 @@
 module InnerPlan::Tasks
   class CompletedTogglerComponent < Phlex::HTML
     include Phlex::Rails::Helpers::ButtonTo
+    include Phlex::Rails::Helpers::DOMID
 
     def initialize(task, context: nil, size: 24)
       @task = task
@@ -10,11 +11,11 @@ module InnerPlan::Tasks
 
     def template
       if task.ongoing?
-        button_to(helpers.complete_task_path(task, context: context), method: :post, class: 'btn p-0 opacity-50', style: 'height:24px;display:block;margin-top:-1px', form: { style: 'height:24px;display:block;' }) {
+        button_to(helpers.complete_task_path(task, context: context), id: id, method: :post, class: 'btn p-0 opacity-50', style: 'height:24px;display:block;margin-top:-1px', form: { style: 'height:24px;display:block;' }) {
           render(Phlex::Icons::Tabler::SquareRounded.new(width: size, height: size))
         }
       else
-        button_to(helpers.reopen_task_path(task, context: context), method: :post, class: 'btn p-0 text-success opacity-75') {
+        button_to(helpers.reopen_task_path(task, context: context), id: id, method: :post, class: 'btn p-0 text-success opacity-75') {
           render(Phlex::Icons::Tabler::SquareRoundedCheck.new(width: size, height: size))
         }
       end
@@ -23,5 +24,9 @@ module InnerPlan::Tasks
     private
 
     attr_reader :task, :context, :size
+
+    def id
+      dom_id(task, :completion_toggler)
+    end
   end
 end

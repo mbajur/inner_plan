@@ -14,21 +14,19 @@ module InnerPlan::Lists
       content_tag(:turbo_frame, id: dom_id(@list, :header)) do
         form_with model: @list do |f|
           header(class: "mb-3") do
-            nav(aria_label: "breadcrumb", style: "--bs-breadcrumb-divider: '›';") do
+            nav(style: "--bs-breadcrumb-divider: '›';") do
               ol(class: "breadcrumb mb-0") do
                 li(class: "breadcrumb-item text-body-tertiary") do
                   a(href: helpers.root_path, class: "text-reset", data_turbo_frame: "_top") do
                     "Home"
                   end
                 end
-                li(
-                  class: "breadcrumb-item text-body-tertiary",
-                  aria_current: "page"
-                ) { link_to "List ##{@list.id}", @list, class: "text-reset" }
-                li(
-                  class: "breadcrumb-item active text-body-tertiary",
-                  aria_current: "page"
-                ) { "Edit" }
+                li(class: "breadcrumb-item text-body-tertiary") do
+                  link_to "List ##{@list.id}", @list, class: "text-reset"
+                end
+                li(class: "breadcrumb-item active text-body-tertiary") do
+                  "Edit"
+                end
               end
             end
             div(class: "row") do
