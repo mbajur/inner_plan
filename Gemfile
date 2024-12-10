@@ -6,15 +6,9 @@ gemspec
 
 gem "puma"
 
-gem "sqlite3"
-
 gem "sprockets-rails"
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
 # gem "debug", ">= 1.0.0"
 
-gem "devise"
-
-group :development do
-  gem "web-console", ">= 3.3.0"
-end
+eval_gemfile File.expand_path("spec/gemfiles/rails_8.0.gemfile", __dir__)
