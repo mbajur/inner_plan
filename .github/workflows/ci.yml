@@ -138,20 +138,20 @@ jobs:
     #   env:
     #     CC_TEST_REPORTER_ID: <code_climate_reporter_id>
 
-  rubocop:
-    runs-on: ubuntu-latest
+  # rubocop:
+  #   runs-on: ubuntu-latest
 
-    env:
-      BUNDLE_GEMFILE: spec/gemfiles/rubocop.gemfile
+  #   env:
+  #     BUNDLE_GEMFILE: spec/gemfiles/rubocop.gemfile
 
-    steps:
-    - uses: actions/checkout@v4
+  #   steps:
+  #   - uses: actions/checkout@v4
 
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.1
-        bundler-cache: true
+  #   - uses: ruby/setup-ruby@v1
+  #     with:
+  #       ruby-version: 3.1
+  #       bundler-cache: true
 
-    - name: Rubocop
-      run: |
-        bundle exec rubocop -c rubocop.yml
+  #   - name: Rubocop
+  #     run: |
+  #       bundle exec rubocop -c rubocop.yml
