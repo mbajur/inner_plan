@@ -20,7 +20,7 @@ module InnerPlan
 
         render(InnerPlan::SearchDropdownComponent.new)
 
-        if helpers.user_signed_in?
+        if helpers.inner_plan_user_signed_in?
           li(class: "ms-auto") do
             plain helpers.current_inner_plan_user.inner_plan_to_s
             img(
