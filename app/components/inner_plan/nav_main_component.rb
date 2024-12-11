@@ -26,7 +26,7 @@ module InnerPlan
             img(
               class: "rounded-circle ms-2",
               style: "margin-top:-.1 rem",
-              src: helpers.current_user.inner_plan_avatar_url,
+              src: helpers.current_inner_plan_user.inner_plan_avatar_url,
               width: "20",
               height: "20"
             )
