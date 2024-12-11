@@ -22,9 +22,9 @@ module InnerPlan
 
         if helpers.user_signed_in?
           li(class: "ms-auto") do
-            plain helpers.current_user.inner_plan_to_s
+            plain helpers.current_inner_plan_user.inner_plan_to_s
             img(
-              class: "rounded-circle ms-1",
+              class: "rounded-circle ms-2",
               style: "margin-top:-.1 rem",
               src: helpers.current_user.inner_plan_avatar_url,
               width: "20",
