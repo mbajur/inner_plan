@@ -3,6 +3,7 @@ module InnerPlan
     include Pundit::Authorization
 
     helper_method :current_inner_plan_user
+    helper_method :inner_plan_user_signed_in?
 
     private
 
