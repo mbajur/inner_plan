@@ -13,5 +13,7 @@ InnerPlan::Engine.routes.draw do
     end
   end
 
+  resource :search, only: [:show]
+
   root to: 'lists#index'
 end
