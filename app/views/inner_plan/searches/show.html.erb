@@ -1,0 +1,6 @@
+<turbo-frame id="search-results">
+  <% if @results.any? %>
+    <div><hr class="dropdown-divider"></div>
+    <%= render(InnerPlan::Searches::ResultsComponent.new(results: @results)) %>
+  <% end %>
+</turbo-frame>

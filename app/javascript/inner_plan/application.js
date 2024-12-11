@@ -5,6 +5,7 @@ import ListsController from "controllers/lists_controller"
 import GroupsController from "controllers/groups_controller"
 import TasksController from "controllers/tasks_controller"
 import TaskInlineFormController from "controllers/task_inline_form_controller"
+import SearchDropdownController from "controllers/search_dropdown_controller"
 
 // Stimulus
 window.Stimulus = Application.start()
@@ -13,3 +14,4 @@ Stimulus.register("lists", ListsController)
 Stimulus.register("groups", GroupsController)
 Stimulus.register("tasks", TasksController)
 Stimulus.register("task-inline-form", TaskInlineFormController)
+Stimulus.register("search-dropdown", SearchDropdownController)
