@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe 'Searching', type: :system, js: true do
   include Devise::Test::IntegrationHelpers
 
-  it "is possible to mark list task as complete" do
+  it "is search for a task using dropdown search" do
     create(:task, title: 'foo')
     create(:task, title: 'bar')
     create(:task, title: 'baz')
