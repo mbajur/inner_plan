@@ -33,8 +33,8 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.element.removeEventListener('shown.bs.dropdown');
-    this.element.removeEventListener('hidden.bs.dropdown');
+    this.element.removeEventListener('shown.bs.dropdown', this.onDropdownShown.bind(this));
+    this.element.removeEventListener('hidden.bs.dropdown', this.onDropdownHidden.bind(this));
   }
 
   submit() {

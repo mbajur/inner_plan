@@ -29,9 +29,7 @@ module InnerPlan
               link_to(@result.title, @result, target: :_top)
             end
 
-            div do
-              excerpt(@result.description, '')
-            end
+            description
           end
         end
       end
@@ -45,6 +43,12 @@ module InnerPlan
         parts.unshift(@result.list.list.title) if @result.list.sub?
 
         plain "#{parts.join(' – ')} · "
+      end
+
+      def description
+        div do
+          excerpt(@result.description, '')
+        end
       end
     end
   end
