@@ -22,7 +22,7 @@ module InnerPlan::Search::Operation
 
     def apply_filter(ctx, scope:, params:, **)
       ctx[:scope] = if params[:q].present?
-        scope.where('title iLIKE ?', "%#{params[:q]}%")
+        scope.where('title LIKE ?', "%#{params[:q]}%")
       else
         scope.none
       end
