@@ -1,9 +1,33 @@
 module InnerPlan::Search::Operation
   class Show < Trailblazer::Operation
+    class ApplySqliteFilter < Trailblazer::Operation
+      step :apply_filter
+
+      private
+
+      def apply_filter(ctx, scope:, params:, **)
+        ctx[:scope] = if params[:q].present?
+          scope.where('title LIKE ?', "%#{params[:q]}%")
+        else
+          scope.none
+        end
+      end
+    end
+
+    class ApplyPostgresqlFilter < Trailblazer::Operation
+      def apply_filter(ctx, scope:, params:, **)
+        ctx[:scope] = if params[:q].present?
+          scope.where('title ILIKE ?', "%#{params[:q]}%")
+        else
+          scope.none
+        end
+      end
+    end
+
     step :resolve_policy_scope
     step :apply_includes
     step :apply_limit
-    step :apply_filter
+    step Nested(:decide_adapter, auto_wire: [ApplySqliteFilter, ApplyPostgresqlFilter])
     step :generate_results
 
     private
@@ -20,11 +44,14 @@ module InnerPlan::Search::Operation
       ctx[:scope] = scope.limit(5)
     end
 
-    def apply_filter(ctx, scope:, params:, **)
-      ctx[:scope] = if params[:q].present?
-        scope.where('title LIKE ?', "%#{params[:q]}%")
+    def decide_adapter(ctx, **)
+      adapter = ActiveRecord::Base.connection_db_config.adapter
+
+      case adapter
+      when "sqlite3" then ApplySqliteFilter
+      when "postgresql" then ApplyPostgresqlFilter
       else
-        scope.none
+        raise "Adapter #{adapter} not supported"
       end
     end
 
