@@ -13,6 +13,8 @@ module InnerPlan
 
     validates :title, presence: true
 
+    after_commit :touch_lists
+
     def ongoing?
       !completed?
     end
@@ -31,6 +33,13 @@ module InnerPlan
 
     def to_param
       [id.to_s, title.to_url(limit: 50, truncate_words: false)].join('-')
+    end
+
+    private
+
+    def touch_lists
+      list.touch
+      list.list.touch if list.sub?
     end
   end
 end

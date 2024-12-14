@@ -25,7 +25,7 @@ module InnerPlan
             plain helpers.current_inner_plan_user.inner_plan_to_s
             img(
               class: "rounded-circle ms-2",
-              style: "margin-top:-.1 rem",
+              style: "margin-top:-.1rem",
               src: helpers.current_inner_plan_user.inner_plan_avatar_url,
               width: "20",
               height: "20"
