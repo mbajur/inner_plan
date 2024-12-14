@@ -14,6 +14,8 @@ module InnerPlan
 
     validates :title, presence: true
 
+    after_commit :touch_parent_list, if: :sub?
+
     def root?
       parent_id.blank?
     end
@@ -24,6 +26,12 @@ module InnerPlan
 
     def to_param
       [id.to_s, title.to_url(limit: 50, truncate_words: false)].join('-')
+    end
+
+    private
+
+    def touch_parent_list
+      list.touch
     end
   end
 end
