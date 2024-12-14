@@ -112,8 +112,8 @@ jobs:
       DB: ${{ matrix.db }}
       DB_HOST: 127.0.0.1
       DB_POOL: 5
-      DB_USERNAME: inner_performance
-      DB_PASSWORD: inner_performance
+      DB_USERNAME: inner_plan
+      DB_PASSWORD: inner_plan
 
     steps:
     - uses: actions/checkout@v4
