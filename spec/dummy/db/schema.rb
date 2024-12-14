@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_07_085212) do
 
   create_table "inner_plan_attachments", force: :cascade do |t|
     t.integer "user_id"
-    t.text "meta", default: "{}"
+    t.text "meta"
     t.string "type", null: false
     t.integer "position", null: false
     t.integer "task_id", null: false

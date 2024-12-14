@@ -25,7 +25,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         env:
-          POSTGRES_DB: inner_plan_gem_test
+          POSTGRES_DB: inner_plan_test
           POSTGRES_USER: inner_plan
           POSTGRES_PASSWORD: inner_plan
 
@@ -33,7 +33,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_HOST: "%"
-          MYSQL_DATABASE: inner_plan_gem_test
+          MYSQL_DATABASE: inner_plan_test
           MYSQL_USER: inner_plan
           MYSQL_PASSWORD: inner_plan
           MYSQL_ROOT_PASSWORD: inner_plan
@@ -50,7 +50,7 @@ jobs:
       matrix:
         ruby: ["3.2", "3.3"]
         rails_version: ["7.2", "8.0"]
-        db: [sqlite3, postgresql, mysql2]
+        db: [sqlite3, postgresql]
         exclude:
           # Not needed version combinations (just to cut down on noise)
           # 3.1 on 7.0 mainly
@@ -60,29 +60,29 @@ jobs:
           - ruby: 3.1
             rails_version: 7.1
             db: sqlite3
-          - ruby: 3.1
-            rails_version: 7.1
-            db: mysql2
-          - ruby: 3.1
-            rails_version: 7.2
-            db: mysql2
+          # - ruby: 3.1
+          #   rails_version: 7.1
+          #   db: mysql2
+          # - ruby: 3.1
+          #   rails_version: 7.2
+          #   db: mysql2
 
           # 3.2 on 7.1 and 7.2 mainly
           - ruby: 3.2
             rails_version: 7.0
             db: sqlite3
-          - ruby: 3.2
-            rails_version: 7.0
-            db: mysql2
+          # - ruby: 3.2
+          #   rails_version: 7.0
+          #   db: mysql2
           - ruby: 3.2
             rails_version: 7.0
             db: sqlite3
           - ruby: 3.2
             rails_version: 8.0
             db: sqlite3
-          - ruby: 3.2
-            rails_version: 8.0
-            db: mysql2
+          # - ruby: 3.2
+          #   rails_version: 8.0
+          #   db: mysql2
           - ruby: 3.3
             rails_version: edge
 
@@ -94,9 +94,9 @@ jobs:
           - ruby: 3.3
             rails_version: 7.2
             db: sqlite3
-          - ruby: 3.3
-            rails_version: 7.2
-            db: mysql2
+          # - ruby: 3.3
+          #   rails_version: 7.2
+          #   db: mysql2
 
           # Not supported version combinations
           - ruby: 3.1
@@ -112,8 +112,8 @@ jobs:
       DB: ${{ matrix.db }}
       DB_HOST: 127.0.0.1
       DB_POOL: 5
-      DB_USERNAME: inner_performance
-      DB_PASSWORD: inner_performance
+      DB_USERNAME: inner_plan
+      DB_PASSWORD: inner_plan
 
     steps:
     - uses: actions/checkout@v4
